@@ -1,0 +1,23 @@
+<div id="main">
+    <article>
+        <app-loading *ngIf="!property"></app-loading>
+        <div *ngIf="propertyFetched" id="property-details">
+            <div class="mat-headline">{{property.title}}</div>
+            <span *ngFor="let image of property.property_image">
+                <img [src]="image.link" style="max-width: 300px;">
+            </span>
+            <table>
+                <tr *ngFor="let v of property | keyvalue">
+
+                    <td>{{v.key}}: </td>
+                    <td>{{v.value}}<span *ngIf="v.key != 'user_id'">Not user_id</span></td>
+
+                </tr>
+            </table>
+            <div *ngIf="showEditButton(property.user_id)">
+                <a [routerLink]="['/sagit',{edit:property.id,type:property.type}]"><button>Edit</button></a>
+            </div>
+        </div>
+    </article>
+    <aside></aside>
+</div>

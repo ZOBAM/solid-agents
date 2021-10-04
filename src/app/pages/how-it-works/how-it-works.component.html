@@ -1,0 +1,129 @@
+<div id="main">
+    <article>
+        <div class="mat-headline">How it Works</div>
+        <p>
+            Bellow, we have made effort to explain to you in a clear terms how you can make use of our services. We hope
+            this will help you sell off your property if you are a seller or help you locate a property of your choice
+            if you are a buyer.
+        </p>
+        <p>
+            We will still be glad if you contact us for more details if there is something you want to know that wasn't
+            listed here. Thanks.
+        </p>
+        <mat-vertical-stepper #stepper>
+            <mat-step state="view">
+                <ng-template matStepLabel>To List A Property For Sale (Sag It)</ng-template>
+                <p>
+                    Click on the Sag It link and then proceed accordingly depending on the property you want to sag. At
+                    the moment we have three categories for saging properties: Land, House, Others
+                </p>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step state="view">
+                <ng-template matStepLabel>To Find A Property For Sale/Rent</ng-template>
+                <p>
+                    From the home page, the list of available properties is made available to you. Click on anyone of
+                    your choice to read more about the particular property and contact the person or company that saged
+                    it for further dealing.
+                </p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step state="view">
+                <ng-template matStepLabel>When You Can't Find The Property You Want To Buy/Rent</ng-template>
+                <p>
+                    We have a help me find service which exist to help our users in a case where they couldn't find the
+                    exact property they need for a particular purpose. To use the help me find service, just contact us
+                    with the provided email and ensure to specify the relevant details of the property you need.
+                </p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step state="view">
+                <ng-template matStepLabel>Cost Of Our Services</ng-template>
+                <p>
+                    For now, listing and locating properties on this platform is free of charge.
+                </p>
+                <p>
+                    For Help Me Find service: In order to serve you better and deliver on time without excuses, we
+                    charge a very little amount (commitment fee) which is less than 2% of interested property price.
+                    Furthermore, the amount you pay as commitment fee is non-refundable but will be deducted from the
+                    amount you are required to pay as commission after buying or renting the property in point.
+                </p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step state="view">
+                <ng-template matStepLabel>After Paying Commitment Fee And There Was No Deal</ng-template>
+                <p>
+                    You may pay a commitment fee and the property deal may not be concluded at the end due to many
+                    factors such as: no needing the said property anymore, not having enough money for the property
+                    found for you etc. if that is the case, you can be rest assured that we have no interest in cheating
+                    you out of you already paid commitment fee.
+                </p>
+                <p>
+                    We have a commitment to judiciously utilize every commitment fee because we have high respect for
+                    integrity and we care that it's your hard earned money, therefore we give details on how your money
+                    was spent and will add any remaining balance to your account with us.
+                </p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step state="view">
+                <ng-template matStepLabel>Fraud Concerns:</ng-template>
+                <p>
+                    We are aware that it not everyone that are sincere in their dealings and therefore we advise our
+                    users to be very careful and make adequate inquiry about a particular property before making any
+                    financial commitment.
+                </p>
+                <p>
+                    For properties listed by us (Solid Agents), we verify and authenticate them ourselves to ensure that
+                    you don’t need worry about being duped. Verified properties will have a verified barge on them.
+                </p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step state="view">
+                <ng-template matStepLabel>Verify User Listed Properties</ng-template>
+                <p>
+                    If you list a property and you want it to be verified by Solid Agents, it can be done at little
+                    service fee and these will increase your chance of selling off your property by a great margin.
+                </p>
+                <p>
+                    The cost of verification depends on various factors such as location, size, security and other
+                    relevant factors.
+                </p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                </div>
+            </mat-step>
+            <!-- custom icon for stepper label -->
+            <ng-template matStepperIcon="view">
+                <mat-icon>visibility</mat-icon>
+            </ng-template>
+        </mat-vertical-stepper>
+        We are simply and sincerely Solid Agents!
+    </article>
+    <aside>
+        1 ROOM SELF CONTAIN
+
+        sliding display image
+        Status: For Rent ] Listed: 23/3/21 ] Available: Today read more
+        3 1/2 PLOTS OF LAND
+
+        sliding display image
+
+    </aside>
+</div>

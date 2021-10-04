@@ -1,1 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+//@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+@import "assets/css_variables";
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  #main {
+    flex-flow: column;
+    background-color: #fff;
+    padding: 0.6em;
+    .mat-headline {
+      text-align: center;
+      background: rgb(238, 250, 238);
+      border: 1px solid #00800052;
+      margin: 1rem auto;
+      padding: 5px 0px;
+    }
+    article {
+      p {
+        line-height: 1.7em;
+        font-size: 1.2em;
+      }
+    }
+    aside {
+      padding: 0.5em;
+      background-color: #80e289;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    table {
+      width: auto;
+      overflow: auto;
+    }
+    footer {
+      section {
+        min-width: 20%;
+        border-style: solid;
+        border-width: 0;
+        border-top-width: 4px;
+        border-image: linear-gradient(
+            to right,
+            #031b03,
+            rgb(5, 99, 21),
+            rgb(131, 7, 7),
+            rgb(24, 234, 24),
+            #031b03
+          )
+          1;
+      }
+    }
+  }
+  @media only screen and (min-width: 480px) {
+  }
+  @media only screen and (min-width: 768px) {
+    #main {
+      flex-flow: row;
+      article {
+        flex: 73%;
+      }
+      aside {
+        margin-left: 2%;
+        flex: 25%;
+      }
+    }
+    footer {
+      section {
+        min-width: 20%;
+        border-style: solid;
+        border-width: 0;
+        border-left-width: 4px;
+        border-image: linear-gradient(
+            to bottom,
+            #031b03,
+            rgb(5, 99, 21),
+            rgb(131, 7, 7),
+            rgb(24, 234, 24),
+            #031b03
+          )
+          1;
+      }
+    }
+  }
+  @media only screen and (min-width: 992px) {
+  }
+  @media only screen and (min-width: 1200px) {
+  }
+}

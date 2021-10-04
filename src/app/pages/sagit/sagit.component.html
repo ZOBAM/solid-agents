@@ -1,0 +1,372 @@
+<article id="main">
+    <div class="sagit-form-container" style="text-align: center;">
+    <h1 class="mat-headline">{{sagitHeaderMsg}}</h1>
+    <app-loading *ngIf="isEditing && !fetchedProp"></app-loading>
+    <app-error *ngIf="error" [errMsg]="errorMessage"></app-error>
+    <p style="text-align: right; margin-top: -1.5em">Just ... SagIt!</p>
+    <mat-button-toggle-group #pType="matButtonToggleGroup" (change)="setPropertyType(pType.value)"
+        [value]="propertyType">
+        <mat-button-toggle value='land' [disabled]="isEditing && propertyType != 'land'">Land</mat-button-toggle>
+        <mat-button-toggle value='house' [disabled]="isEditing && propertyType != 'house'">House</mat-button-toggle>
+        <mat-button-toggle value='others' [disabled]="isEditing && propertyType != 'others'">Other Properties
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+    <p>{{propertyType}}</p>
+    <div *ngIf="isEditing && fetchedProp || !isEditing">
+        <app-loading *ngIf="submitting && error == false"></app-loading>
+        <app-error *ngIf="error" [errMsg]="errorMessage"></app-error>
+        <p>{{editedProp?.title}}</p>
+        <form [formGroup]="sagitForm" (ngSubmit)='sagit()' *ngIf="!submitting">
+            <mat-horizontal-stepper formArrayName="sagitFormGroup" linear>
+                <mat-step formGroupName="0" [stepControl]="sagitForm?.get([0])!">
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Title</mat-label>
+                        <input matInput formControlName='title' required>
+                        <mat-error *ngIf='title.invalid'>
+                            Title MUST be between 2-25 characters
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Deal Type</mat-label>
+                        <mat-select matInput formControlName='dealType' required>
+                            <mat-option>choose deal type</mat-option>
+                            <mat-option value='for_sale'>For Sale</mat-option>
+                            <mat-option value='for_rent'>For Rent</mat-option>
+                            <mat-option value='for_swap'>For Swap</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='dealType.invalid'>
+                            Deal Type Cannot be empty string.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Price</mat-label>
+                        <input matInput formControlName='price' required>
+                        <mat-error *ngIf='price.invalid'>
+                            Price MUST be between 1000-10000000000 naira
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Status</mat-label>
+                        <mat-select matInput formControlName='status' required>
+                            <mat-option value='no_bid'>No bid yet</mat-option>
+                            <mat-option value='bidding'>Bid in progress</mat-option>
+                            <mat-option value='finalizing_bids'>Finalizing bids</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='status.invalid'>
+                            Invalid status range
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>State</mat-label>
+                        <input matInput formControlName='state' required>
+                        <mat-error *ngIf='state.invalid'>
+                            The provided state is invalid.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>LGA</mat-label>
+                        <input matInput formControlName='lga' required>
+                        <mat-error *ngIf='lga.invalid'>
+                            LGA is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Town</mat-label>
+                        <input matInput formControlName='town' required>
+                        <mat-error *ngIf='town.invalid'>
+                            Town is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>More Details (If any)</mat-label>
+                        <input matInput formControlName='desc'>
+                        <mat-error *ngIf='desc.invalid'>
+                            Description is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Property Purpose</mat-label>
+                        <mat-select matInput formControlName='purpose' required>
+                            <mat-option value='commercial'>Commercial</mat-option>
+                            <mat-option value='residential'>Residential</mat-option>
+                            <mat-option value='mixed'>Mixed</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='purpose.invalid'>
+                            Purpose is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Broker Fee (Agency Commission)</mat-label>
+                        <mat-select formControlName='brokerFee' required>
+                            <mat-option value=0>No</mat-option>
+                            <mat-option value=1>Yes</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperNext type="button">Next</button>
+                    </div>
+                </mat-step>
+                <mat-step *ngIf="propertyType == 'land'" formGroupName="1" [stepControl]="sagitForm?.get([1])!">
+                    <div *ngIf="pType.value == 'land'">
+                        <mat-form-field apppearance="fill">
+                            <mat-label>No of Plots</mat-label>
+                            <input matInput formControlName='plots' type="number" min="1" max="200" required>
+                            <mat-error *ngIf='plots.invalid'>
+                                No of plots is not right.
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field apppearance="fill">
+                            <mat-label>Size of plot(s)</mat-label>
+                            <input matInput formControlName='size' required>
+                            <mat-error *ngIf='size.invalid'>
+                                Size is not right.
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Unit</mat-label>
+                            <mat-select formControlName='unit' required>
+                                <mat-option>Choose Unit</mat-option>
+                                <mat-option value="sqm">Square Meter (sqm)</mat-option>
+                                <mat-option value="sqft">Square Feet (sqft)</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field apppearance="fill">
+                            <mat-label>Allocation Type</mat-label>
+                            <mat-select formControlName='allocationType'>
+                                <mat-option>Choose Allocation</mat-option>
+                                <mat-option value="community">Community Allocation</mat-option>
+                                <mat-option value="government">Government Allocation</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf='allocationType.invalid'>
+                                Allocation Type Fee is not right.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious type="button">Back</button>
+                        <button mat-button matStepperNext type="button">Next</button>
+                    </div>
+                </mat-step>
+                <mat-step *ngIf="propertyType == 'house'" formGroupName="2" [stepControl]="sagitForm?.get([2])!">
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Total Rooms*</mat-label>
+                        <input matInput formControlName='totalRooms' type="number" min="1" max="60">
+                        <mat-error *ngIf='totalRooms.invalid'>
+                            No of total rooms is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Bedroom(s)</mat-label>
+                        <input matInput formControlName='bedrooms' type="number" min="0" max="60">
+                        <mat-error *ngIf='bedrooms.invalid'>
+                            Bedrooms is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Bathroom(s)</mat-label>
+                        <input matInput formControlName='bathrooms' type="number" min="0" max="60">
+                        <mat-error *ngIf='bathrooms.invalid'>
+                            Bathrooms is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Parking Space*</mat-label>
+                        <mat-select formControlName='parkingSpace'>
+                            <mat-option>Parking Space</mat-option>
+                            <mat-option value=0>Yes</mat-option>
+                            <mat-option value=1>No</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='parkingSpace.invalid'>
+                            Parking Space is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Parking Space Size</mat-label>
+                        <input matInput formControlName='parkingSpaceSize' type="number" min="1" max="200">
+                        <mat-error *ngIf='parkingSpaceSize.invalid'>
+                            Parking Space Size is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>First Resident*</mat-label>
+                        <mat-select formControlName='firstResident'>
+                            <mat-option>First Resident?</mat-option>
+                            <mat-option value=0>Yes</mat-option>
+                            <mat-option value=1>No</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='firstResident.invalid'>
+                            First Resident is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Furnishing</mat-label>
+                        <mat-select formControlName='furnishing'>
+                            <mat-option>Choose furnishing</mat-option>
+                            <mat-option value="not_furnished">Not furnished</mat-option>
+                            <mat-option value="partially_furnished">Partially Furnished</mat-option>
+                            <mat-option value="fully_furnished">Fully Furnished</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='furnishing.invalid'>
+                            furnishing is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Housing Quality</mat-label>
+                        <mat-select formControlName='housingQuality'>
+                            <mat-option>Choose Housing Quality</mat-option>
+                            <mat-option value="sub_standard">Sub Standard</mat-option>
+                            <mat-option value="standard">Standard</mat-option>
+                            <mat-option value="above_standard">Above Standard</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='housingQuality.invalid'>
+                            Housing Quality is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Smoking</mat-label>
+                        <mat-select formControlName='smoking'>
+                            <mat-option>Choose Smoking </mat-option>
+                            <mat-option value=0>Yes</mat-option>
+                            <mat-option value=1>No</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='smoking.invalid'>
+                            Smoking is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Pets</mat-label>
+                        <mat-select formControlName='pets'>
+                            <mat-option>Choose Pets </mat-option>
+                            <mat-option value=0>Yes</mat-option>
+                            <mat-option value=1>No</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='pets.invalid'>
+                            Pets is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Parties</mat-label>
+                        <mat-select formControlName='parties'>
+                            <mat-option>Choose Parties </mat-option>
+                            <mat-option value=0>Yes</mat-option>
+                            <mat-option value=1>No</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='parties.invalid'>
+                            Parties is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Minimum Rent</mat-label>
+                        <input matInput formControlName='minimumRent' type="number" min="1000" max="5000000"
+                            step="1000">
+                        <mat-error *ngIf='minimumRent.invalid'>
+                            Minimum Rent is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Water*</mat-label>
+                        <mat-select formControlName='water'>
+                            <mat-option>Choose Water </mat-option>
+                            <mat-option value="overhead_tank">Available (overhead tanks)</mat-option>
+                            <mat-option value="outside_tap">Available (Outside tap)</mat-option>
+                            <mat-option value="well">Available (Well)</mat-option>
+                            <mat-option value="not_available">Not Available</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='water.invalid'>
+                            Water is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Light*</mat-label>
+                        <mat-select formControlName='light'>
+                            <mat-option>Choose Light </mat-option>
+                            <mat-option value=0>Yes (Connected to PHCN)</mat-option>
+                            <mat-option value=1>No (Not Connected to PHCN)</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='light.invalid'>
+                            Light is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Fence*</mat-label>
+                        <mat-select formControlName='fenced'>
+                            <mat-option>Choose Fence </mat-option>
+                            <mat-option value="yes">Yes (Fenced)</mat-option>
+                            <mat-option value="yes_partial">Yes (Partially Fenced)</mat-option>
+                            <mat-option value="no">No (Not Fenced)</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf='fenced.invalid'>
+                            Fence is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Facilities</mat-label>
+                        <input matInput formControlName='facilities'>
+                        <mat-error *ngIf='facilities.invalid'>
+                            Facilities Rent is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field apppearance="fill">
+                        <mat-label>Guest Capacity</mat-label>
+                        <input matInput formControlName='guestCapacity' type="number" min="1000" max="5000000" step="1">
+                        <mat-error *ngIf='guestCapacity.invalid'>
+                            Guest Capacity is not right.
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious type="button">Back</button>
+                        <button mat-button matStepperNext type="button">Next</button>
+                    </div>
+                </mat-step>
+                <mat-step formGroupName="3" [stepControl]="sagitForm?.get([3])!">
+                    <p>Upload Images and Submit the Form</p>
+                    <div *ngIf="isEditing && editedProp.property_image" style="margin-bottom: 1vh;">
+                        <p>This property has <strong>{{editedProp.image_count}}</strong> image(s)</p>
+                        <span *ngFor="let image of editedProp.property_image" style="display: inline-block;">
+                            <img [src]="image.link" alt="" style="max-width: 15vh;"><br>
+                            <button mat-outline-button (click)="removeImage(image.id,true)"
+                                type="button">Delete</button>
+                        </span>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <!-- <div formArrayName="images">
+                        <mat-divider></mat-divider>
+                        <div *ngFor="let image of images.controls; let i = index"
+                            style="display: inline-block;margin: 2vh 0px;">
+                            <input hidden type="file" [formControlName]="i" (change)="onImageSelected($event)" #upload
+                                required>
+                            <span (click)="upload.click()" style="padding: 1vh; background-color: rgb(166, 200, 240);
+                border-width: 0px;margin: 0.5vh;cursor: pointer;">{{imgPosition(i)}}: Browse
+                                <span style="padding:4px; background-color:crimson;cursor: pointer;margin-right: -1vh;"
+                                    (click)="removeImage(i)">X</span></span>
+                        </div>
+                    </div> -->
+                    <section class="flex flex-wrap">
+                    <div *ngIf="selectedImages.length; else noImageYet">
+                        <div class="bg-[ff0000]">length of images: {{selectedImages.length}}</div>
+                        <div *ngFor="let image of selectedImages" style="display: inline-block;">
+                            <span style="display: inline; text-decoration: none;list-style-type: none;">
+                                <!-- <img [src]="image[image.controlIndex]" alt="preview image" style="max-width: 15vh;" (click) = "upload.click()"><br> -->
+                                <img src="{{image.previewURL}}" alt="preview image" style="max-width: 15vh;"
+                                    ><br>
+                            </span>
+                        </div>
+                    </div>
+                    <ng-template #noImageYet>
+                        Your image preview will be shown here shortly
+                    </ng-template>
+                        <div formArrayName="images">
+                            <input hidden type="file" [formControlName]=0 (change)="onImageSelected($event)" #upload required>
+                            <img [src]="adImageURL" alt="add image" (click) = "upload.click()">
+                        </div>
+                </section>
+                    <mat-divider></mat-divider>
+                    <button mat-raised-button color='primary' [disabled]="sagitForm.invalid">
+                        Sagit!
+                    </button>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </form>
+    </div>
+</div>
+</article>

@@ -1,0 +1,53 @@
+@import "../../../assets/css_variables";
+
+footer {
+  padding: 1vh;
+  background-color: #040e04;
+  font-size: 1.1em;
+  h3 {
+    margin-bottom: 0px;
+  }
+  div {
+    background-color: $dark-green;
+    border-radius: 2vh;
+    padding: 1.7vh;
+    min-width: 20%;
+    color: #ffffffd0;
+    a {
+      display: inline-block;
+      text-decoration: none;
+      color: #ffffff91;
+      line-height: 1.5em;
+      transition: text-decoration, border, 1s;
+    }
+    a:hover {
+      border-bottom: 2.5px dashed #ffffff41;
+      background-color: #003300;
+      padding: 3px;
+      color: white;
+    }
+    img {
+      max-width: 45%;
+      display: block;
+      float: right;
+    }
+    #company-info div:nth-child(1) {
+      float: right;
+      background-color: blue;
+    }
+  }
+  section {
+    color: #ffffffd0;
+    font-size: 0.8em;
+    padding: 0px 0px 0px 0.5rem;
+    h3 {
+      text-align: center;
+    }
+    h4 {
+      margin: 1px 1rem;
+      font-size: 1em;
+      padding: 4px;
+      background-color: #57675770;
+    }
+  }
+}

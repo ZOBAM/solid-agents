@@ -1,0 +1,28 @@
+$green: rgb(1, 90, 1);
+$lighter-green: rgb(1, 133, 1);
+$dark-green: #01250191;
+
+@mixin mat-headline{
+  text-align: center;
+  background: rgb(238, 250, 238);
+  border:1px solid #00800052;
+  margin-top: 1rem;
+  padding: 5px 0px;
+}
+.button-submit{
+  margin: 3vh auto;
+  display: block;
+  border: 1px solid $green;
+  color: white;
+  background-color: $green;
+}
+.button-submit:hover{
+  background-color: $dark-green;
+  color: white;
+  border-color: $lighter-green;
+}
+article p, aside p{
+  font-size: 1.1em;
+  line-height: 1.5em;
+  color: #00000094;
+}

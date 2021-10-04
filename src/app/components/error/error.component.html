@@ -1,0 +1,7 @@
+<div>
+    <mat-list dense *ngFor="let msg of displayError(errMsg) | keyvalue">
+        <mat-list-item>
+            {{msg.value}}
+        </mat-list-item>
+    </mat-list>
+</div>
