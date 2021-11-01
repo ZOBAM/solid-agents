@@ -1,5 +1,6 @@
 <div id="main">
     <article>
+        <p-confirmPopup></p-confirmPopup>
         <div>
             <img [src]="user.dp_link" alt="user profile image" style="max-width: 100px;">
             <p>Welcome {{user.first_name}}</p>
@@ -34,7 +35,7 @@
                         <a [routerLink]="['/sagit',{edit:property.id,type:property.type}]">
                             <button mat-stroked-button color="primary">Edit <mat-icon>edit</mat-icon></button>
                         </a>
-                        <button mat-stroked-button color="warn" (click)="deleteProp(property.id)">Delete <mat-icon>
+                        <button mat-stroked-button color="warn" (click)="deleteProp($event, property.id)">Delete <mat-icon>
                                 delete</mat-icon> </button>
                     </td>
                 </ng-container>

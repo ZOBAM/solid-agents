@@ -2,18 +2,119 @@
     <article>
         <app-loading *ngIf="!property"></app-loading>
         <div *ngIf="propertyFetched" id="property-details">
-            <div class="mat-headline">{{property.title}}</div>
-            <span *ngFor="let image of property.property_image">
+            <div class="text-center mt-4">
+                <h1>{{property.title}}</h1>
+            </div>
+            <section class="md:w-1/2 m-auto text-center">
+                <p-carousel [value]="images" [numVisible]="1">
+                <ng-template let-image pTemplate="item">
+                    <div  class="flex justify-center items-center bg-gray-200">
+                        <img [src]="image.link" style="max-width: 300px;">
+                    </div>
+                    
+                </ng-template>
+            </p-carousel>
+            </section>
+            
+            <!-- <span *ngFor="let image of property.property_image">
                 <img [src]="image.link" style="max-width: 300px;">
-            </span>
-            <table>
+            </span> -->
+            <section class="text-center bg-gray-50/90 p-3 relative">
+                <div id="description-div" class="bg-white rounded-xl md:w-1/2 m-auto p-5 relative">
+                    <div class="absolute w-full -top-4 flex justify-center items-center">
+                        <span 
+                    class="uppercase border-2 border-green-400 px-4 py-2 rounded-full bg-white min-w-[33%]">
+                        {{property.type +' '+ property.deal.replace('_', ' ')}}
+                    </span>
+                    </div>
+                    
+                    <div class="mt-8 text-left">
+                        <p>
+                            {{property.desc}}
+                        </p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 m-auto">
+                    <div class="flex text-left my-2 border border-green-400 rounded-tr-2xl">
+                        <div class="bg-green-400 text-white p-1">Location: </div>
+                        <div class="text-center flex-grow p-1">{{property.town + ', '+property.lga + ', '+property.state}} state </div>
+                    </div>
+                    <div class="flex text-left my-2 border border-green-400 rounded-tr-2xl">
+                        <div class="bg-green-400 text-white p-1">Price: </div>
+                        <div class="text-center flex-grow p-1">
+                             <span class="font-bold">N{{property.price}}.00</span> 
+                             <span class="" *ngIf="property.house">(per annum)</span> 
+                        </div>
+                    </div>
+                    <div class="flex text-left my-2 border border-green-400 rounded-tr-2xl">
+                        <div class="bg-green-400 text-white p-1">Status: </div>
+                        <div class="text-center flex-grow p-1">
+                             {{property.status.replace('_', ' ')}}
+                        </div>
+                    </div>
+                    <div class="flex text-left my-2 border border-green-400 rounded-tr-2xl">
+                        <div class="flex w-1/2">
+                            <div class="bg-green-400 text-white p-1">Views: </div>
+                        <div class="text-center flex-grow p-1">
+                             {{property.views}}
+                        </div>  
+                        </div>
+                        <div class="flex w-1/2">
+                            <div class="bg-green-400 text-white p-1">Likes: </div>
+                            <div class="text-center flex-grow p-1">
+                                {{property.likes}}
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full p-3 bg-white text-green-700" (click)="showDetails = !showDetails">
+                        Show {{!showDetails? 'More' : 'Less'}} details
+                        <span class="float-right font-bold text-xl">
+                            <mat-icon *ngIf="showDetails">expand_less</mat-icon>
+                            <mat-icon *ngIf="!showDetails">expand_more</mat-icon>
+                        </span>
+                    </button>
+                    <section *ngIf="showDetails">
+                        <h3 *ngIf="property.house || property.land" class="w-full cursor-pointer">More details </h3>
+                        <section *ngIf="property.house" class="flex flex-wrap">
+                            <div *ngFor="let detail of house.entries()" class="flex w-1/2 mb-1">
+                                <div class="bg-green-400 text-white p-1 capitalize">{{detail[0].replace('_', ' ')}}: </div>
+                                <div class="text-center flex-grow p-1">
+                                    {{formatHouseProps(detail[1],detail[0])}}
+                                </div>
+                            </div>
+                        </section>
+                        <section *ngIf="property.land">
+                            <div class="flex w-1/2 mb-1">
+                                <div class="bg-green-400 text-white p-1 capitalize">Plots: </div>
+                                <div class="text-center flex-grow p-1">
+                                    {{property.land.plots}}
+                                </div>
+                            </div>
+                            <div class="flex w-1/2 mb-1">
+                                <div class="bg-green-400 text-white p-1 capitalize">Size: </div>
+                                <div class="text-center flex-grow p-1">
+                                    {{property.land.size}}
+                                </div>
+                            </div>
+                            <div class="flex w-1/2 mb-1">
+                                <div class="bg-green-400 text-white p-1 capitalize">Allocation type: </div>
+                                <div class="text-center flex-grow p-1">
+                                    <span class="capitalize">{{property.land.allocation_type}}</span>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                   
+                </div>
+            </section>
+            <!-- <table>
                 <tr *ngFor="let v of property | keyvalue">
 
                     <td>{{v.key}}: </td>
                     <td>{{v.value}}<span *ngIf="v.key != 'user_id'">Not user_id</span></td>
 
                 </tr>
-            </table>
+            </table> -->
             <div *ngIf="showEditButton(property.user_id)">
                 <a [routerLink]="['/sagit',{edit:property.id,type:property.type}]"><button>Edit</button></a>
             </div>

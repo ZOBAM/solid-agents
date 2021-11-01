@@ -1,0 +1,13 @@
+#search-area {
+  background-image: url("./../../../assets/images/search_bg_image.jpg");
+}
+#property-title {
+  background-image: url("./../../../assets/images/property_title_bg_image.png");
+}
+#got-property {
+  background-image: url("./../../../assets/images/solid_sagit_bg_image.jpg");
+
+  #call-to-sag {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 8% 99%);
+  }
+}

@@ -1,31 +1,113 @@
 <main id="main">
-    <div>
-        <div class="mat-headline">Genuine Properties for Sale/Lease</div>
+    <section class="py-6 bg-yellow-600 min-h-[12rem] bg-left-bottom bg-contain" id="search-area">
+        <div class="bg-gradient-to-t from-gray-200 via-white to-transparent">
+            <form (ngSubmit) = "search()" [formGroup]="searchQuery">
+                <div class="w-4/5 m-auto block">
+                    <input type="text" formControlName="query" placeholder="Search properties" name="query"
+                        class="w-full py-2 px-6 border-2 border-gray-300 rounded-full focus:border-green-500 outline-none">
+                </div>
+                <div class="flex justify-center bg-white flex-wrap gap-2 p-4">
+                    <p-dropdown formControlName="state" class="" [options]="cities" placeholder="Select a State" [showClear]="true">
+                    </p-dropdown>
+                    <p-dropdown formControlName="lga" class="" [options]="cities" placeholder="Select LGA"  [showClear]="true">
+                    </p-dropdown>
+                    <p-dropdown formControlName="town" class="" [options]="cities" placeholder="Select a Town"  [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="center">
+                    <p-button label="Search" type="submit" class=""></p-button>
+                </div>
+            </form>
+            <p-toast position="top-right"></p-toast>
+        </div>
+    </section>
+    <article class="mt-24">
+        <div class="mat-headline text-center bg-gradient-to-r from-white via-green-100 py-2 to-white">
+            Genuine Properties for Sale/Lease
+        </div>
     <app-loading *ngIf="!properties"></app-loading>
-    <div class="flex w-full flex-wrap" fxLayout fxLayout.xs="column">
-        <div *ngFor="let property of properties" class="w-1/2 sm:w-1/3 md:w-1/4 bg-red-500">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>
+    <div class="flex w-full flex-wrap px-[0.3rem]">
+        <div *ngFor="let property of properties" class="w-1/2 sm:w-1/3 md:w-1/4 bg-red-50 p-[0.1rem]">
+            <mat-card class="relative min-h-[10rem] bg-no-repeat bg-right-top rounded-b-lg" id="property-title">
+                <mat-card-header class="center">
+                    <mat-card-title class="h-[1.4rem] overflow-hidden text-green-900 text-xs" >
                         <a
-                            [routerLink]="['/properties',property.type,property.id,property.title.split(' ').join('-')]">{{property.title}}</a>
+                            [routerLink]="['/properties',property.type,property.id,property.title.split(' ').join('-')]" 
+                            class="whitespace-nowrap">
+                            {{getPropertyTitle(property.title)}}</a>
                     </mat-card-title>
                 </mat-card-header>
-                <div style="max-height: 35vh;overflow: hidden;">
+                <div style="height: 35vh;overflow: hidden;" class="center">
                     <img mat-card-image [src]="getPropertyImg(property)">
                 </div>
-                <mat-card-content>
-                    <p>{{property.desc}}</p>
+                <mat-card-content class="absolute left-0 bottom-0 bg-gray-50 w-full pt-2 rounded-b-xl">
+                    <div class="center flex-col">
+                       <span class=" text-gray-500 font-black">
+                           N{{property.price}}.00 
+                           {{property.deal.toLowerCase()=="for rent"? "(per annum)": ""}}</span>
+                       <span class="text-xs sm:text-sm md:text-2xl -mb-2">
+                           {{property.town + ", "+ property.state}} state.
+                       </span>
+                    </div>
+                    <div class="flex justify-between px-1 py-1 md:py-2">
+                        <div class="relative py-2 pl-2 pr-5 text-xs overflow-hidden shadow-md" style="overflow: hidden;">21
+                            <mat-icon class="absolute text-xs pl-1">favorite_border</mat-icon>
+                        </div>
+                        <div class="text-xs text-green-700 p-2 bg-green-50" style="overflow: hidden;">{{property.deal.replace('_',
+                            ' ')}} </div>
+                        <div class="relative py-2 pl-2 pr-5 text-xs overflow-hidden shadow-md" style="overflow: hidden;">{{property.views}}<mat-icon
+                                class="absolute pl-1 text-xs">remove_red_eye</mat-icon> </div>
+                    </div>
                 </mat-card-content>
-                <mat-divider></mat-divider>
-                <mat-card-actions>
-                    <button mat-raised-button>Like <mat-icon>favorite_border</mat-icon> </button>
-                    <button mat-raised-button>Share <mat-icon>share</mat-icon> </button>
-                    <button mat-raised-button>View <mat-icon>remove_red_eye</mat-icon> </button>
-                </mat-card-actions>
             </mat-card>
         </div>
     </div>
-    </div>
-    
+    <section class="bg-green-600 min-h-[16rem] bg-fixed my-36 relative flex-col sm:flex-row flex bg-cover bg-left-top" id="got-property">
+        <div class="w-full sm:w-2/3">
+            <div class="w-40 bg-purple-800 absolute left-0 z-0 h-[100%] mix-blend-overlay sepia">
+                
+            </div>
+            <div class="mt-24 px-4 z-50 relative">
+                <span class="text-white bg-gradient-to-r from-purple-800 to-gray-600 w-96 px-4 py-2 font-bold " >
+                You have property? 
+            </span>
+            <h2 class=" text-yellow-500 p-4">
+                <span class="text-6xl" style="text-shadow: 2px 2px 2px white;">
+                    Let get you a Deal
+                </span> 
+            </h2>
+            </div>
+            
+        </div>
+        <div class="bg-gradient-to-tr from-gray-50 to-green-50 sm:bg-white py-10 w-full sm:w-1/3 border font-bold center flex-col bg-opacity-0" id="call-to-sag">
+            <a routerLink = "/sagit" class="ring ring-green-700 ring-offset-2 hover:bg-yellow-800 hover:text-gray-50 bg-green-600 p-4 rounded-full text-white">List Your Property</a>
+            <div class="mt-9 static sm:absolute bottom-1 p-3">
+                <a routerLink="/request_call" class="p-3 shadow-xl border text-yellow-700">Request a call</a>
+            </div>
+        </div>
+    </section>
+    <section class="w-full bg-green-800 py-4 mb-24">
+        <h3 class="text-center text-white font-bold"> <span class=" text-3xl">Property Requests</span> </h3>
+        <div class="text-center w-11/12 md:w-4/5 p-3 m-auto bg-white text-gray-700 rounded-t-xl">
+            <span>
+            The following properties are needed at the various specified location. If you have any, please contact the client.
+        </span>
+        </div>
+        
+        <div class="bg-gray-50 p-2 md:p-4 rounded-md md:rounded-3xl grid-cols-2 grid md:grid-cols-4 lg:grid-cols-5">
+            <div *ngFor="let request of [1,2,3,4,5,6,7,8]" class="p-2 bg-yellow-50 mb-2 rounded-md md:rounded-xl shadow-md w-[96%] text-xs">
+                <h3 class="text-center mb-0 border">
+                    2 Bedroom flat
+                </h3>
+                <div class="-mt-4 bg-gradient-to-r from-white via-green-50 to-white h-2"></div>
+                <p>
+                    around Obeagu, Enugu North, Enugu state
+                </p>
+                <div>
+                    <span class="bg-gray-200 p-1">Budget:</span> <span class="float-right"><strong>below N200k</strong></span>  
+                </div>
+            </div>
+        </div>
+    </section>
+    </article>
 </main>

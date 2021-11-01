@@ -1,0 +1,103 @@
+<article class="bg-gray-500">
+    <div class="w-full md:w-5/6 m-auto bg-white p-5 border-2 border-green-500">
+        <section>
+            <h2 class="text-center p-3">
+                You need a property? Let us get you a deal.
+            </h2>
+        </section>
+        <section>
+            <form [formGroup] = "requestForm" (ngSubmit)="request()"><div class="flex">
+                <div class="w-1/2">
+                    <p>
+                        Which type of property do you need?
+                    </p>
+                    <div>
+                        <div *ngFor="let propType of propertyTypes" class="p-1">
+                            <p-radioButton [value]="propType" formControlName="propertyType" [label]="propType">
+                            </p-radioButton>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 w-1/2">
+                    <p>
+                        You need it for:
+                    </p>
+                    <div>
+                        <div *ngFor="let dealType of dealTypes" class="p-1">
+                            <p-radioButton [value]="dealType" formControlName="dealType" [label]="dealType">
+                            </p-radioButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-1/2">
+                    <p>
+                        Land to be used for:
+                    </p>
+                    <div>
+                        <div *ngFor="let propType of purposes" class="p-1">
+                            <p-radioButton [value]="propType" formControlName="purpose" [label]="propType">
+                            </p-radioButton>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 w-1/2">
+                    <p>
+                        Type of house:
+                    </p>
+                    <div>
+                        <p-dropdown class="" [options]="houseTypes" formControlName="houseType" placeholder="Select house type" [showClear]="true">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-around">
+                <div class="mt-3">
+                    <div class="mt-8">
+                        <span class="p-float-label">
+                            <input id="float-input" formControlName="lowestPrice" type="text" pInputText class="w-full mt-4">
+                            <label for="float-input">Lowest Price</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="mt-8">
+                        <span class="p-float-label">
+                            <input id="float-input" formControlName="highestPrice" type="text" pInputText class="w-full ">
+                            <label for="float-input">Highest Price</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-around">
+                <div class="flex justify-center bg-white flex-wrap gap-2 p-4">
+                    <p-dropdown class="" (onChange)="getLgas()" [options]="states" placeholder="Select a State" [showClear]="true" formControlName="state">
+                    </p-dropdown>
+                    <p-dropdown class="" formControlName="lga" [options]="cities" placeholder="Select LGA" [showClear]="true">
+                    </p-dropdown>
+                    <p-dropdown class="" formControlName="town" [options]="cities" placeholder="Select a Town" [showClear]="true">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="mt-3 text-center bg-gray-100 p-4">
+                <p>
+                    <p-checkbox name="groupname" value="1" formControlName="confirm"></p-checkbox>
+                    I, confirm that the information I provided above are correct about myself and I give my consent to be called by Solid Agents.
+                </p>
+            </div>
+            <div class="center mt-3">
+                <p-button type="submit" label="Submit Request"></p-button>
+            </div>
+            </form>
+        </section>
+        <section>
+            <p>
+                Your request has been submitted successfully. We will get to you as soon as possible.
+            </p>
+            <p>
+                Thanks.
+            </p>
+        </section>
+    </div>
+</article>

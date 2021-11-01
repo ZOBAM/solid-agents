@@ -1,6 +1,6 @@
 <article id="main">
     <div class="sagit-form-container" style="text-align: center;">
-    <h1 class="mat-headline">{{sagitHeaderMsg}}</h1>
+    <h1 class="mat-headline m-5" style="margin: 2rem;">{{sagitHeaderMsg}}</h1>
     <app-loading *ngIf="isEditing && !fetchedProp"></app-loading>
     <app-error *ngIf="error" [errMsg]="errorMessage"></app-error>
     <p style="text-align: right; margin-top: -1.5em">Just ... SagIt!</p>
@@ -299,7 +299,7 @@
                             Fence is not right.
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field apppearance="fill">
+                    <!-- <mat-form-field apppearance="fill">
                         <mat-label>Facilities</mat-label>
                         <input matInput formControlName='facilities'>
                         <mat-error *ngIf='facilities.invalid'>
@@ -312,7 +312,7 @@
                         <mat-error *ngIf='guestCapacity.invalid'>
                             Guest Capacity is not right.
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
                     <div>
                         <button mat-button matStepperPrevious type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
@@ -341,24 +341,20 @@
                                     (click)="removeImage(i)">X</span></span>
                         </div>
                     </div> -->
-                    <section class="flex flex-wrap">
-                    <div *ngIf="selectedImages.length; else noImageYet">
-                        <div class="bg-[ff0000]">length of images: {{selectedImages.length}}</div>
-                        <div *ngFor="let image of selectedImages" style="display: inline-block;">
+                    <section class="flex flex-wrap center">
+                    <ng-container *ngIf="selectedImages.length">
+                        <div *ngFor="let image of selectedImages" style="display: inline-block; border: 3px solid rgb(245, 230, 216); margin-left: 4px;" >
                             <span style="display: inline; text-decoration: none;list-style-type: none;">
                                 <!-- <img [src]="image[image.controlIndex]" alt="preview image" style="max-width: 15vh;" (click) = "upload.click()"><br> -->
                                 <img src="{{image.previewURL}}" alt="preview image" style="max-width: 15vh;"
-                                    ><br>
+                                    ><button (click)="removeImage(image.id)" type="button">Remove</button>
                             </span>
                         </div>
+                    </ng-container>
+                    <div formArrayName="images">
+                        <input hidden type="file" [formControlName]=0 (change)="onImageSelected($event)" #upload required>
+                        <img [src]="adImageURL" alt="add image" (click) = "upload.click()">
                     </div>
-                    <ng-template #noImageYet>
-                        Your image preview will be shown here shortly
-                    </ng-template>
-                        <div formArrayName="images">
-                            <input hidden type="file" [formControlName]=0 (change)="onImageSelected($event)" #upload required>
-                            <img [src]="adImageURL" alt="add image" (click) = "upload.click()">
-                        </div>
                 </section>
                     <mat-divider></mat-divider>
                     <button mat-raised-button color='primary' [disabled]="sagitForm.invalid">

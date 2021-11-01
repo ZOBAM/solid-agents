@@ -11,6 +11,8 @@ import { MaterialModule } from './modules/material/material.module';
 import { PrimeModule } from './modules/primng.module';
 //services
 import { AuthService } from './services/auth.service';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 //pages components
 import { AboutComponent } from './pages/about/about.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -26,6 +28,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { UserAreaComponent } from './pages/user-area/user-area.component';
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
 import { PropertyDetailsComponent } from './pages/property-details/property-details.component';
+import { SearchComponent } from './pages/search/search.component';
+import { RequestCallComponent } from './pages/request-call/request-call.component';
+import { PropertyRequestComponent } from './pages/property-request/property-request.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +46,9 @@ import { PropertyDetailsComponent } from './pages/property-details/property-deta
     UserAreaComponent,
     HowItWorksComponent,
     PropertyDetailsComponent,
+    SearchComponent,
+    RequestCallComponent,
+    PropertyRequestComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +62,9 @@ import { PropertyDetailsComponent } from './pages/property-details/property-deta
   ],
   providers: [
     AuthService,
+    ConfirmationService,
     Title,
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
