@@ -1,0 +1,7 @@
+.p-inputtextarea {
+  background-color: rgb(242, 253, 242);
+  width: 80vw;
+  &:focus {
+    background-color: white;
+  }
+}

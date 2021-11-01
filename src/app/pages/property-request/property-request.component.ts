@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PropertyService } from 'src/app/services/property.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-property-request',
@@ -8,7 +9,16 @@ import { PropertyService } from 'src/app/services/property.service';
   styleUrls: ['./property-request.component.scss'],
 })
 export class PropertyRequestComponent implements OnInit {
-  constructor(private propService: PropertyService) {}
+  constructor(private propService: PropertyService) {
+    this.requestForm
+      .get('priceRange')
+      ?.valueChanges.pipe(debounceTime(500))
+      .subscribe((values) => {
+        //console.log(values.priceRange);
+        this.requestForm.patchValue({ lowestPrice: values[0] });
+        this.requestForm.patchValue({ highestPrice: values[1] });
+      });
+  }
 
   ngOnInit(): void {
     this.propService.getStates().subscribe((data) => {
@@ -21,8 +31,10 @@ export class PropertyRequestComponent implements OnInit {
   }
   statesLga: any;
   states: Array<string> = [];
+  propType: string = 'Land';
+  priceRange = [10000, 6000000];
   cities = ['New York', 'Rome', 'London', 'Istanbul', 'Paris'];
-  propertyTypes = ['Land', 'House', 'Others'];
+  propertyTypes = ['Land', 'House'];
   dealTypes = ['Rent', 'Sale', 'Swap'];
   purposes = ['residential', 'commercial', 'mixed'];
   houseTypes = [
@@ -36,17 +48,27 @@ export class PropertyRequestComponent implements OnInit {
     'event center',
   ];
   requestForm = new FormGroup({
-    propertyType: new FormControl(),
+    propertyType: new FormControl(this.propType),
     dealType: new FormControl(),
     purpose: new FormControl(),
     houseType: new FormControl(),
     state: new FormControl(),
     lga: new FormControl(),
-    lowestPrice: new FormControl(),
-    highestPrice: new FormControl(),
+    priceRange: new FormControl(this.priceRange),
+    lowestPrice: new FormControl({ value: this.priceRange[0], disabled: true }),
+    highestPrice: new FormControl({
+      value: this.priceRange[1],
+      disabled: true,
+    }),
     town: new FormControl(),
     confirm: new FormControl(),
   });
+
+  setProperty() {
+    alert('Property is now set.');
+    this.propType = this.requestForm.value.propertyType;
+    //console.log(this.requestForm.value);
+  }
   getLgas() {
     alert('Getting lgas soon');
   }

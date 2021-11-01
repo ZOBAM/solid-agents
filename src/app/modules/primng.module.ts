@@ -8,6 +8,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SliderModule } from 'primeng/slider';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 const PrimeNG = [
   ButtonModule,
@@ -19,6 +21,8 @@ const PrimeNG = [
   RadioButtonModule,
   CheckboxModule,
   InputTextareaModule,
+  SliderModule,
+  InputNumberModule,
 ];
 
 @NgModule({
