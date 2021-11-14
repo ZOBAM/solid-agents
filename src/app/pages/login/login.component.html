@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div id="main">
+    <article>
+        <h1 class="mat-headline">User Login <mat-icon>login</mat-icon>
+        </h1>
+        <app-loading *ngIf="submitting && error == false"></app-loading>
+        <app-error *ngIf="error" [errMsg]="errorMessage"></app-error>
+        <form [formGroup]='loginForm' *ngIf="!submitting">
+            <mat-form-field apppearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName='email'>
+                <mat-error *ngIf='email?.invalid'>
+                    The provided email is invalid.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field apppearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type='password' formControlName='password'>
+                <mat-error *ngIf='password?.invalid'>
+                    Password MUST be 8 or more characters in length.
+                </mat-error>
+            </mat-form-field>
+            <mat-divider></mat-divider>
+            <button mat-raised-button (click)='login()' type="button" [disabled]='loginForm.invalid'
+                class="button-submit">
+                Login <mat-icon>arrow_forward</mat-icon>
+            </button>
+            <mat-divider></mat-divider>
+        </form>
+    </article>
+    <aside>
+        <!-- <app-aside></app-aside> -->
+    </aside>
+</div>

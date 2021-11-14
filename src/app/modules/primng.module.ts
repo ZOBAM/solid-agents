@@ -10,6 +10,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TabViewModule } from 'primeng/tabview';
+import { TableModule } from 'primeng/table';
 
 const PrimeNG = [
   ButtonModule,
@@ -23,6 +25,8 @@ const PrimeNG = [
   InputTextareaModule,
   SliderModule,
   InputNumberModule,
+  TabViewModule,
+  TableModule,
 ];
 
 @NgModule({

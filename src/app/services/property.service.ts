@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class PropertyService {
   postURL = environment.apiUrl + '/properties';
+  apiURL = environment.apiUrl + '/';
   isEditing: boolean = false;
   userProperties: any;
   constructor(private http: HttpClient, private errorService: ErrorService) {}
@@ -25,7 +26,7 @@ export class PropertyService {
       .pipe(catchError(this.errorService.handleError));
   }
   getUsers() {
-    return this.http.get(environment.apiUrl + '/users');
+    return this.http.get(this.apiURL + 'users');
   }
   deleteProperty(propID: any) {
     return this.http.delete(this.postURL + '/' + propID);
@@ -36,8 +37,8 @@ export class PropertyService {
     let lga: string = params.get('lga');
     let town: string = params.get('town');
     return this.http.get(
-      environment.apiUrl +
-        '/search?query=' +
+      this.apiURL +
+        'search?query=' +
         query +
         '&state=' +
         state +
@@ -48,6 +49,16 @@ export class PropertyService {
     );
   }
   getStates() {
-    return this.http.get(environment.apiUrl + '/states');
+    return this.http.get(this.apiURL + 'states');
+  }
+  /* requestCall(formData: any) {
+    return this.http.post(this.apiURL + 'request_call', formData);
+    console.log(formData);
+  } */
+  request(formData: any, type: string = 'property') {
+    if (type == 'property')
+      return this.http.post(this.apiURL + 'request_property', formData);
+    else return this.http.post(this.apiURL + 'request_call', formData);
+    //console.log(formData);
   }
 }

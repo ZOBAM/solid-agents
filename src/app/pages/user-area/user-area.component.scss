@@ -1,0 +1,10 @@
+aside {
+  a {
+    display: block;
+    padding: 0.5rem;
+    border-bottom: 2px solid ghostwhite;
+  }
+  a:last-child {
+    border-bottom: 0px solid ghostwhite;
+  }
+}

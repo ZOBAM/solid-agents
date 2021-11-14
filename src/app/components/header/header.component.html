@@ -13,15 +13,14 @@
                 <a routerLink="/sagit" routerLinkActive="active-link">Sag It</a>
             </li>
             <li>
-                <a routerLink="/how-it-works" routerLinkActive="active-link">How It Works</a>
+                <a routerLink="/request_property" routerLinkActive="active-link">Request Property</a>
             </li>
             <li>
-                <a routerLink="/about-sa" routerLinkActive="active-link">About Us</a>
+                <a routerLink="/request_call" routerLinkActive="active-link">Call Me</a>
             </li>
             <li [matMenuTriggerFor]="menu" style="position: relative;">
                 <a>
-                    <span *ngIf="status; else notLogged">{{getUser().first_name}}</span>
-                    <ng-template #notLogged>User</ng-template>
+                    {{status? getUser().first_name : "User"}}
                     <mat-icon style="display: inline-block;position: relative;top:6px">keyboard_arrow_down</mat-icon>
                 </a>
             </li>
@@ -29,7 +28,7 @@
                 <a *ngIf="!status" routerLink="/login"><button mat-menu-item>Login</button></a>
                 <a *ngIf="!status" routerLink="/signup"><button mat-menu-item>Register</button></a>
                 <a *ngIf="status" routerLink="/user-area"><button mat-menu-item>User Area</button></a>
-                <a *ngIf="status" routerLink="/logout"><button mat-menu-item>Logout</button></a>
+                <span *ngIf="status" (click)="endSession()"><button mat-menu-item>Logout</button></span>
             </mat-menu>
         </ul>
     </div>

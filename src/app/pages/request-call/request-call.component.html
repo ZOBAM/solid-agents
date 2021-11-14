@@ -1,78 +1,74 @@
 <article class="bg-gray-500">
-    <div class="w-5/6 m-auto bg-white p-5">
+    <div class="w-full md:w-5/6 m-auto bg-white p-5">
         <section>
             <h2 class="text-center p-3">
                 You have a property? Let us call you and get you started.
             </h2>
         </section>
         <section>
-            <div class="flex">
-                <div class="w-1/2">
+            <form [formGroup] = "requestForm" (ngSubmit)="requestCall()">
+                <div class="flex">
+                    <div class="w-1/2">
+                        <p>
+                            Which type of property do you have?
+                        </p>
+                        <div>
+                            <div *ngFor="let propType of propertyTypes" class="p-1">
+                                <p-radioButton [value]="propType" formControlName="propertyType" [label]="propType"></p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 w-1/2">
+                        <p>
+                            The property is for:
+                        </p>
+                        <div>
+                            <div *ngFor="let dealType of dealTypes" class="p-1">
+                                <p-radioButton [value]="dealType" formControlName="dealType" [label]="dealType"></p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="mt-3 w-1/2">
+                        <p>
+                            Which of the following is your most convenient time for call?
+                        </p>
+                        <div *ngFor="let callTime of callTimes" class="p-1">
+                            <p-radioButton [value]="callTime" formControlName="callTime" [label]="callTime"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="w-1/2 mt-1">
+                        <div class="mt-3">
+                            <div class="mt-8">
+                                <span class="p-float-label">
+                                    <input id="float-input" formControlName="name" type="text" pInputText class="w-full mt-4">
+                                    <label for="float-input">Your full name</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="mt-8">
+                                <span class="p-float-label">
+                                    <input id="float-input" formControlName="tel" type="tel" name="tel" pInputText class="w-full ">
+                                    <label for="float-input">Your phone no.</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 text-center bg-gray-100 p-4">
                     <p>
-                        Which type of property do you have?
+                        <p-checkbox name="groupname" formControlName="confirm" value="1"></p-checkbox>
+                        I, confirm that the information I provided above are correct about myself and I give my consent to be
+                        called by Solid Agents.
                     </p>
-                    <div>
-                        <div *ngFor="let propType of propertyTypes" class="p-1">
-                            <p-radioButton [value]="propType" [formControl]="propertyType" [label]="propType"></p-radioButton>
-                        </div>
-                    </div>
                 </div>
-                <div class="mt-3 w-1/2">
-                    <p>
-                        The property is for:
-                    </p>
-                    <div>
-                        <div *ngFor="let dealType of dealTypes" class="p-1">
-                            <p-radioButton [value]="dealType" [formControl]="propertyType" [label]="dealType"></p-radioButton>
-                        </div>
-                    </div>
+                <div class="center mt-3">
+                    <p-button label="Call Me" type ="submit" [disabled]="!requestForm.valid"></p-button>
                 </div>
-            </div>
-            <div class="flex">
-                <div class="mt-3 w-1/2">
-                    <p>
-                        Which of the following is your most convenient time for call?
-                    </p>
-                    <div *ngFor="let callTime of callTimes" class="p-1">
-                        <p-radioButton [value]="callTime" [formControl]="propertyType" [label]="callTime"></p-radioButton>
-                    </div>
-                </div>
-                <div class="w-1/2 mt-1">
-                    <div class="mt-3">
-                        <div class="mt-8">
-                            <span class="p-float-label">
-                                <input id="float-input" type="text" pInputText class="w-full mt-4">
-                                <label for="float-input">Your full name</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <div class="mt-8">
-                            <span class="p-float-label">
-                                <input id="float-input" type="text" pInputText class="w-full ">
-                                <label for="float-input">Your phone no.</label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-3 text-center bg-gray-100 p-4">
-                <p><p-checkbox name="groupname" value="val2"></p-checkbox>
-                    I, confirm that the information I provided above are correct about myself and I give my consent to be
-                    called by Solid Agents.
-                </p>
-            </div>
-            <div class="center mt-3">
-                <p-button label="Call Me"></p-button>
-            </div>
-        </section>
-        <section>
-            <p>
-                Your request has been submitted successfully. We will get to you as soon as possible.
-            </p>
-            <p>
-                Thanks.
-            </p>
+            </form>
+            
         </section>
     </div>
 </article>

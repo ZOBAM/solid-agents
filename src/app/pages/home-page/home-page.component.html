@@ -18,7 +18,6 @@
                     <p-button label="Search" type="submit" class=""></p-button>
                 </div>
             </form>
-            <p-toast position="top-right"></p-toast>
         </div>
     </section>
     <article class="mt-24">
@@ -45,7 +44,7 @@
                        <span class=" text-gray-500 font-black">
                            N{{property.price}}.00 
                            {{property.deal.toLowerCase()=="for rent"? "(per annum)": ""}}</span>
-                       <span class="text-xs sm:text-sm md:text-2xl -mb-2">
+                       <span class="text-xs sm:text-sm md:text-md -mb-2">
                            {{property.town + ", "+ property.state}} state.
                        </span>
                     </div>
@@ -62,7 +61,7 @@
             </mat-card>
         </div>
     </div>
-    <section class="bg-green-600 min-h-[16rem] bg-fixed my-36 relative flex-col sm:flex-row flex bg-cover bg-left-top" id="got-property">
+    <section class="bg-green-600 min-h-[24rem] bg-fixed my-36 relative flex-col sm:flex-row flex bg-cover bg-left-top" id="got-property">
         <div class="w-full sm:w-2/3">
             <div class="w-40 bg-purple-800 absolute left-0 z-0 h-[100%] mix-blend-overlay sepia">
                 

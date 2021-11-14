@@ -1,0 +1,74 @@
+<article class="bg-green-50">
+    <section>
+        <mat-tab-group mat-align-tabs="center" [selectedIndex] = "currentIndex">
+            <mat-tab label="Property Request">
+                <p-table [value]="propertyRequests" responsiveLayout="stack" breakpoint="680px">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Price (N)</th>
+                            <th>Status</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-propertyRequest>
+                        <tr>
+                            <td>
+                                <span class="p-column-title">Date</span>
+                                {{propertyRequest.created_at | date}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Description</span>
+                                {{propertyRequest.type + " for "+ propertyRequest.deal}}
+                                <span class="block font-semibold text-xs">
+                                    {{propertyRequest.description}}
+                                </span>
+
+                            </td>
+                            <td>
+                                <span class="p-column-title">Price (N)</span>
+                                {{propertyRequest.lowest_price | currency:"₦"}} - {{propertyRequest.highest_price | currency:"₦"}}
+                            </td>
+                            <td>
+                                <span class="p-column-title font-bold">Status</span>
+                                {{propertyRequest.still_needed? "Gotten" : "Still needed"}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </mat-tab>
+            <mat-tab label="Call Request">
+                <p-table [value]="callRequests" responsiveLayout="stack" breakpoint="680px">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Call Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-callRequest>
+                        <tr>
+                            <td>
+                                <span class="p-column-title">Date</span>
+                                {{callRequest.created_at | date}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Description</span>
+                                {{callRequest.description}}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Call Time</span>
+                                {{callRequest.preferred_time}}
+                            </td>
+                            <td>
+                                <span class="p-column-title font-bold">Status</span>
+                                {{callRequest.done? "Called you" : "About to call"}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </mat-tab>
+        </mat-tab-group>
+    </section>
+</article>

@@ -11,6 +11,9 @@ import { SearchComponent } from './pages/search/search.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RequestCallComponent } from './pages/request-call/request-call.component';
 import { PropertyRequestComponent } from './pages/property-request/property-request.component';
+import { RequestComponent } from './components/user/request/request.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { PropertiesComponent } from './components/user/properties/properties.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent, data: { title: 'Solid Agents' } },
@@ -31,7 +34,7 @@ const routes: Routes = [
     data: { title: 'Request A Call' },
   },
   {
-    path: 'property_request',
+    path: 'request_property',
     component: PropertyRequestComponent,
     data: { title: 'Request A Call' },
   },
@@ -45,7 +48,25 @@ const routes: Routes = [
     component: HowItWorksComponent,
     data: { title: 'How It Works' },
   },
-  { path: 'user-area', component: UserAreaComponent, canActivate: [AuthGuard] },
+  {
+    path: 'user-area',
+    component: UserAreaComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'requests',
+        component: RequestComponent,
+      },
+      {
+        path: 'properties',
+        component: PropertiesComponent,
+      },
+      {
+        path: '',
+        component: ProfileComponent,
+      },
+    ],
+  },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
   {
     path: 'properties/:type/:id/:title',

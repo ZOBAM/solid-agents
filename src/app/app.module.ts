@@ -31,6 +31,9 @@ import { PropertyDetailsComponent } from './pages/property-details/property-deta
 import { SearchComponent } from './pages/search/search.component';
 import { RequestCallComponent } from './pages/request-call/request-call.component';
 import { PropertyRequestComponent } from './pages/property-request/property-request.component';
+import { RequestComponent } from './components/user/request/request.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { PropertiesComponent } from './components/user/properties/properties.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { PropertyRequestComponent } from './pages/property-request/property-requ
     SearchComponent,
     RequestCallComponent,
     PropertyRequestComponent,
+    RequestComponent,
+    ProfileComponent,
+    PropertiesComponent,
   ],
   imports: [
     BrowserModule,

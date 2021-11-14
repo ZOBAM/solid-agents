@@ -4,7 +4,6 @@ import { PropertyService } from '../../services/property.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-home-page',
@@ -13,7 +12,6 @@ import { query } from '@angular/animations';
 })
 export class HomePageComponent implements OnInit {
   constructor(
-    private http: HttpClient,
     private propertyService: PropertyService,
     private router: Router,
     private messageService: MessageService
