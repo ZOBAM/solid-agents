@@ -15,8 +15,16 @@ export class HomePageComponent implements OnInit {
     private propertyService: PropertyService,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.propertyService
+      .getRequests()
+      .subscribe((data) => (this.propertyRequests = data));
+  }
   properties: any = null;
+  propertyRequests: any = [];
+  statesLga: any;
+  states: Array<string> = [];
+  lgas: Array<string> = [];
   searchQuery = new FormGroup({
     query: new FormControl(''),
     state: new FormControl(),
@@ -26,6 +34,12 @@ export class HomePageComponent implements OnInit {
   cities = ['New York', 'Rome', 'London', 'Istanbul', 'Paris'];
   ngOnInit(): void {
     this.fetchProperties();
+    this.propertyService.getStates().subscribe((data) => {
+      this.statesLga = data;
+      for (let state in data) {
+        this.states.push(state);
+      }
+    });
   }
 
   fetchProperties() {
@@ -47,6 +61,10 @@ export class HomePageComponent implements OnInit {
       return title.substr(0, 17) + '...';
     }
     return title;
+  }
+  getLgas() {
+    //alert('Getting lgas soon');
+    this.lgas = this.statesLga[this.searchQuery.value.state];
   }
   search() {
     let values = this.searchQuery.value;

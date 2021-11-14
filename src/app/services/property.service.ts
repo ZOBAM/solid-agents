@@ -25,8 +25,8 @@ export class PropertyService {
       .get(this.postURL + urlPara)
       .pipe(catchError(this.errorService.handleError));
   }
-  getUsers() {
-    return this.http.get(this.apiURL + 'users');
+  getRequests() {
+    return this.http.get(this.apiURL + 'requests');
   }
   deleteProperty(propID: any) {
     return this.http.delete(this.postURL + '/' + propID);
@@ -36,17 +36,16 @@ export class PropertyService {
     let state: string = params.get('state');
     let lga: string = params.get('lga');
     let town: string = params.get('town');
-    return this.http.get(
-      this.apiURL +
-        'search?query=' +
-        query +
-        '&state=' +
-        state +
-        '&lga=' +
-        lga +
-        '&town=' +
-        town
-    );
+    if (state) {
+      query += '&state=' + state;
+      if (lga) {
+        query += '&lga=' + lga;
+      }
+    }
+    if (town) {
+      query += '&town=' + town;
+    }
+    return this.http.get(this.apiURL + 'search?query=' + query);
   }
   getStates() {
     return this.http.get(this.apiURL + 'states');
