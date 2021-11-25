@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { PropertyService } from 'src/app/services/property.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
@@ -22,14 +17,18 @@ export class PropertyRequestComponent implements OnInit {
     private messageService: MessageService,
     private router: Router
   ) {
-    this.requestForm
+    this.houseTypes = this.propService.houseTypes;
+    this.purposes = this.propService.purposes;
+    this.propertyTypes = propService.propertyTypes;
+    this.dealTypes = propService.dealTypes;
+    /* this.requestForm
       .get('priceRange')
       ?.valueChanges.pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((values) => {
         //console.log(values);
         this.requestForm.patchValue({ lowestPrice: values[0] });
         this.requestForm.patchValue({ highestPrice: values[1] });
-      });
+      }); */
     this.requestForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe((values) => {
@@ -54,20 +53,10 @@ export class PropertyRequestComponent implements OnInit {
   lgas: Array<string> = [];
   propType: string = 'Land';
   priceRange = [10000, 6000000];
-  cities = ['New York', 'Rome', 'London', 'Istanbul', 'Paris'];
-  propertyTypes = ['Land', 'House'];
-  dealTypes = ['Rent', 'Sale', 'Swap'];
-  purposes = ['residential', 'commercial', 'mixed'];
-  houseTypes = [
-    'shop',
-    'single room',
-    'rooms & parlor',
-    'self-contain',
-    'flat',
-    'bungalow',
-    'warehouse',
-    'event center',
-  ];
+  propertyTypes: Array<string>;
+  dealTypes: Array<string>;
+  purposes: Array<string>;
+  houseTypes: Array<string>;
   requestForm = this.fb.group({
     propertyType: ['', Validators.required],
     dealType: ['', Validators.required],
@@ -98,7 +87,6 @@ export class PropertyRequestComponent implements OnInit {
     console.log(this.requestForm.get('houseType'));
   }
   getLgas() {
-    //alert('Getting lgas soon');
     this.lgas = this.statesLga[this.requestForm.value.state];
   }
   request() {
@@ -124,5 +112,10 @@ export class PropertyRequestComponent implements OnInit {
         }
         setTimeout(() => this.router.navigate(['/user-area/requests']), 4000);
       });
+  }
+  rangeChange(event: any){
+    //console.log(event.values);
+    this.requestForm.patchValue({ lowestPrice: event.values[0] });
+    this.requestForm.patchValue({ highestPrice: event.values[1] });
   }
 }

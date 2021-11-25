@@ -2,26 +2,46 @@ $green: rgb(1, 90, 1);
 $lighter-green: rgb(1, 133, 1);
 $dark-green: #01250191;
 
-@mixin mat-headline{
+@mixin mat-headline {
   text-align: center;
   background: rgb(238, 250, 238);
-  border:1px solid #00800052;
+  border: 1px solid #00800052;
   margin-top: 1rem;
   padding: 5px 0px;
 }
-.button-submit{
+@mixin gradient-border(
+  $direction: to bottom,
+  $color1: #031b03,
+  $color2: rgb(5, 99, 21),
+  $color3: rgb(131, 7, 7),
+  $color4: rgb(24, 234, 24)
+) {
+  border-style: solid;
+  border-width: 0;
+  border-image: linear-gradient(
+      $direction,
+      $color1,
+      $color2,
+      $color3,
+      $color4,
+      $color1
+    )
+    1;
+}
+.button-submit {
   margin: 3vh auto;
   display: block;
   border: 1px solid $green;
   color: white;
   background-color: $green;
 }
-.button-submit:hover{
+.button-submit:hover {
   background-color: $dark-green;
   color: white;
   border-color: $lighter-green;
 }
-article p, aside p{
+article p,
+aside p {
   font-size: 1.1em;
   line-height: 1.5em;
   color: #00000094;

@@ -12,6 +12,7 @@ import { SliderModule } from 'primeng/slider';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TabViewModule } from 'primeng/tabview';
 import { TableModule } from 'primeng/table';
+import { FieldsetModule } from 'primeng/fieldset';
 
 const PrimeNG = [
   ButtonModule,
@@ -27,6 +28,7 @@ const PrimeNG = [
   InputNumberModule,
   TabViewModule,
   TableModule,
+  FieldsetModule,
 ];
 
 @NgModule({

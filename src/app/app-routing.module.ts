@@ -14,6 +14,7 @@ import { PropertyRequestComponent } from './pages/property-request/property-requ
 import { RequestComponent } from './components/user/request/request.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { PropertiesComponent } from './components/user/properties/properties.component';
+import { RequestDetailsComponent } from './pages/request-details/request-details.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent, data: { title: 'Solid Agents' } },
@@ -37,6 +38,11 @@ const routes: Routes = [
     path: 'request_property',
     component: PropertyRequestComponent,
     data: { title: 'Request A Call' },
+  },
+  {
+    path: 'property_requests/:type/:id/:title',
+    component: RequestDetailsComponent,
+    data: { title: 'Property Request Details' },
   },
   {
     path: 'about-sa',

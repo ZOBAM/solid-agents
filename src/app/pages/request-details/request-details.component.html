@@ -1,0 +1,11 @@
+<div id="main">
+    <article>
+        <app-loading *ngIf="loading"></app-loading>
+        <div *ngIf="!loading" id="property-details">
+            <div class="text-center mt-4">
+                <h1>{{"property.title"}}</h1>
+            </div>
+        </div>
+    </article>
+    <aside></aside>
+</div>

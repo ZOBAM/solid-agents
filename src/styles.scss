@@ -20,18 +20,8 @@ body {
     footer {
       section {
         min-width: 20%;
-        border-style: solid;
-        border-width: 0;
+        @include gradient-border($direction: to right);
         border-top-width: 4px;
-        border-image: linear-gradient(
-            to right,
-            #031b03,
-            rgb(5, 99, 21),
-            rgb(131, 7, 7),
-            rgb(24, 234, 24),
-            #031b03
-          )
-          1;
       }
     }
   }
@@ -41,18 +31,8 @@ body {
     footer {
       section {
         min-width: 20%;
-        border-style: solid;
-        border-width: 0;
+        @include gradient-border();
         border-left-width: 4px;
-        border-image: linear-gradient(
-            to bottom,
-            #031b03,
-            rgb(5, 99, 21),
-            rgb(131, 7, 7),
-            rgb(24, 234, 24),
-            #031b03
-          )
-          1;
       }
     }
   }

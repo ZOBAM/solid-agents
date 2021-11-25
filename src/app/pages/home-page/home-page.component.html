@@ -44,7 +44,7 @@
                 <mat-card-content class="absolute left-0 bottom-0 bg-gray-50 w-full pt-2 rounded-b-xl">
                     <div class="center flex-col">
                        <span class=" text-gray-500 font-black">
-                           N{{property.price}}.00 
+                           {{property.price| currency: "₦"}}.00 
                            {{property.deal.toLowerCase()=="for rent"? "(per annum)": ""}}</span>
                        <span class="text-xs sm:text-sm md:text-md -mb-2">
                            {{property.town + ", "+ property.state}} state.
@@ -97,21 +97,26 @@
         
         <div class="bg-gray-50 p-2 md:p-4 rounded-md md:rounded-3xl grid-cols-2 grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             <ng-container *ngIf="propertyRequests.length">
-                <div *ngFor="let request of propertyRequests"
-                    class="p-2 bg-gray-50 mb-2 rounded-md md:rounded-xl shadow-md w-[96%] text-xs">
-                    <h3 class="text-center mb-0 border">
-                        {{request.type + " for "+ request.deal}}
-                        <span class="block font-semibold text-xs">
-                            {{request.description}}
-                        </span>
-                    </h3>
-                    <div class="-mt-4 bg-gradient-to-r from-white via-green-50 to-white h-2"></div>
-                    <p>
-                        {{request.town +', '+ request.lga + ', '+request.state}} state
-                    </p>
-                    <div>
-                        <span class="bg-gray-200 p-1">Budget:</span> <span class="float-right"><strong>below N{{request.highest_price/1000}}k</strong></span>
-                    </div>
+                <div class="" *ngFor="let request of propertyRequests">
+                    <a [routerLink]="['/property_requests',request.type,request.id,request.deal.split(' ').join('-')]">
+                        <div
+                            class="p-2 bg-gray-50 mb-2 rounded-md md:rounded-xl shadow-md w-[96%] text-xs">
+                            <h3 class="text-center mb-0 border">
+                                {{request.type + " for "+ request.deal}}
+                                <span class="block font-semibold text-xs">
+                                    {{request.description}}
+                                </span>
+                            </h3>
+                            <div class="-mt-4 bg-gradient-to-r from-white via-green-50 to-white h-2"></div>
+                            <p>
+                                {{request.town +', '+ request.lga + ', '+request.state}} state
+                            </p>
+                            <div>
+                                <span class="bg-gray-200 p-1">Budget:</span> <span class="float-right"><strong>below
+                                        ₦{{(request.highest_price/1000)}}k</strong></span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </ng-container>
             <div *ngIf="!propertyRequests.length">

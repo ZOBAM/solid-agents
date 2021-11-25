@@ -1,7 +1,39 @@
-<section>
+<section class="p-8">
     <p-confirmPopup></p-confirmPopup>
     <div class="center">
         <img [src]="user.dp_link" alt="user profile image" style="max-width: 100px;">
-        <p>Welcome {{user.first_name}}</p>
+    </div>
+    <div class=" my-6">
+        <p class="text-center p-4 bg-gradient-to-r from-green-50 via-green-100 to-green-50">
+            Welcome {{user.first_name + ' ' + user.last_name}}
+        </p>
+    </div>
+    <div class="flex justify-around">
+        <div class=" ">
+            <p class="text-xl">
+                <span class="block text-sm shadow-md mb-2">Tel:</span>
+                {{user.tel}}
+            </p>
+        </div>
+        <div class="">
+            <p>
+                <span class="block text-sm shadow-md mb-2">Email:</span>
+                {{user.email}}
+            </p>
+        </div>
+    </div>
+    <div class="flex justify-around text-left border">
+        <div class="border">
+            <p>
+                <span class="block text-sm shadow-md mb-2">Date of Birth:</span>
+                {{user.dob | date}}
+            </p>
+        </div>
+        <div class="">
+            <p>
+                <span class="block text-sm shadow-md mb-2">Date Joined:</span>
+                {{user.created_at | date}}
+            </p>
+        </div>
     </div>
 </section>

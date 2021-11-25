@@ -15,7 +15,11 @@ export class RequestCallComponent implements OnInit {
     private propService: PropertyService,
     private messageService: MessageService,
     private router: Router
-  ) {}
+  ) {
+    this.propertyTypes = propService.propertyTypes;
+    this.dealTypes = propService.dealTypes;
+  }
+  ngOnInit(): void {}
   requestForm = this.fb.group({
     propertyType: ['', [Validators.required]],
     dealType: ['', [Validators.required]],
@@ -30,9 +34,8 @@ export class RequestCallComponent implements OnInit {
     ],
     confirm: ['', [Validators.required]],
   });
-  ngOnInit(): void {}
-  propertyTypes = ['Land', 'House', 'Others'];
-  dealTypes = ['Rent', 'Sale', 'Swap'];
+  propertyTypes: Array<string>;
+  dealTypes: Array<string>;
   callTimes = [
     'morning (8:00am - 11:00am)',
     'afternoon (12:00pm - 3:00pm)',
