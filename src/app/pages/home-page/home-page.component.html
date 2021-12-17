@@ -44,7 +44,7 @@
                 <mat-card-content class="absolute left-0 bottom-0 bg-gray-50 w-full pt-2 rounded-b-xl">
                     <div class="center flex-col">
                        <span class=" text-gray-500 font-black">
-                           {{property.price| currency: "₦"}}.00 
+                           {{property.price| currency: "₦"}}
                            {{property.deal.toLowerCase()=="for rent"? "(per annum)": ""}}</span>
                        <span class="text-xs sm:text-sm md:text-md -mb-2">
                            {{property.town + ", "+ property.state}} state.
@@ -104,7 +104,7 @@
                             <h3 class="text-center mb-0 border">
                                 {{request.type + " for "+ request.deal}}
                                 <span class="block font-semibold text-xs">
-                                    {{request.description}}
+                                    {{request.purpose || request.house_type}}
                                 </span>
                             </h3>
                             <div class="-mt-4 bg-gradient-to-r from-white via-green-50 to-white h-2"></div>
@@ -113,7 +113,7 @@
                             </p>
                             <div>
                                 <span class="bg-gray-200 p-1">Budget:</span> <span class="float-right"><strong>below
-                                        ₦{{(request.highest_price/1000)}}k</strong></span>
+                                        ₦{{formatMoney(request.highest_price)}}</strong></span>
                             </div>
                         </div>
                     </a>

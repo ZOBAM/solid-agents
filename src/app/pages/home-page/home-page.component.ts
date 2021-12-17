@@ -88,4 +88,7 @@ export class HomePageComponent implements OnInit {
       });
     }
   }
+  formatMoney(amount: number) {
+    return this.propertyService.formatMoney(amount);
+  }
 }

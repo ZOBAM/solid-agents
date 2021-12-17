@@ -38,7 +38,8 @@ export class PropertyService {
       .get(this.postURL + urlPara)
       .pipe(catchError(this.errorService.handleError));
   }
-  getRequests() {
+  getRequests(id = 0) {
+    if (id) return this.http.get(this.apiURL + 'requests/' + id);
     return this.http.get(this.apiURL + 'requests');
   }
   deleteProperty(propID: any) {
@@ -105,5 +106,23 @@ export class PropertyService {
       return this.http.post(this.apiURL + 'request_property', formData);
     else return this.http.post(this.apiURL + 'request_call', formData);
     //console.log(formData);
+  }
+  formatMoney(amount: number) {
+    let formattedAmount = amount / 1000;
+    let postFix = 'K';
+    if (amount >= 1000000) {
+      //return amount / 1000 + 'K';
+      if (amount < 1000000000) {
+        formattedAmount = amount / 1000000;
+        postFix = 'M';
+      } else {
+        formattedAmount = amount / 1000000000;
+        postFix = 'B';
+      }
+    }
+    if (parseInt((formattedAmount % 1).toFixed(2).substring(2)) != 0)
+      // add decimal part only if decimal value is not zero
+      formattedAmount = +formattedAmount.toFixed(1);
+    return formattedAmount + postFix;
   }
 }

@@ -5,35 +5,31 @@
     </div>
     <div class=" my-6">
         <p class="text-center p-4 bg-gradient-to-r from-green-50 via-green-100 to-green-50">
-            Welcome {{user.first_name + ' ' + user.last_name}}
+            Welcome <strong>{{user.first_name + ' ' + user.last_name}}</strong> 
         </p>
     </div>
-    <div class="flex justify-around">
-        <div class=" ">
-            <p class="text-xl">
-                <span class="block text-sm shadow-md mb-2">Tel:</span>
+    <div class="">
+            <p class="text-xl text-center border-b border-green-200">
                 {{user.tel}}
             </p>
-        </div>
-        <div class="">
-            <p>
-                <span class="block text-sm shadow-md mb-2">Email:</span>
+            <span class="block text-sm mb-2 -mt-2">Tel:</span>
+    </div>
+    <div class="">
+            <p class="text-xl text-center border-b border-green-200">
                 {{user.email}}
             </p>
-        </div>
+            <span class="block text-sm mb-2 -mt-2">Email:</span>
     </div>
-    <div class="flex justify-around text-left border">
-        <div class="border">
-            <p>
-                <span class="block text-sm shadow-md mb-2">Date of Birth:</span>
-                {{user.dob | date}}
+    <div class="">
+            <p class="text-xl text-center border-b border-green-200">
+                {{(user.dob | date) || 'Not Available'}}
             </p>
-        </div>
-        <div class="">
-            <p>
-                <span class="block text-sm shadow-md mb-2">Date Joined:</span>
-                {{user.created_at | date}}
+            <span class="block text-sm mb-2 -mt-2">Date of Birth:</span>
+    </div>
+    <div class="">
+            <p class="text-xl text-center border-b border-green-200">
+                {{(user.created_at | date) || 'Not Available'}}
             </p>
-        </div>
+            <span class="block text-sm mb-2 -mt-2">Date Joined:</span>
     </div>
 </section>

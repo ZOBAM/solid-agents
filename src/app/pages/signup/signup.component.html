@@ -1,0 +1,60 @@
+<div id="main">
+    <article class="my-8">
+        <div class="register-form-container">
+            <h1 class="text-center">Sign Up and Get Privileges!</h1>
+            <app-loading *ngIf="submitting && error == false"></app-loading>
+            <app-error *ngIf="error" [errMsg]="errorMessage"></app-error>
+            <form [formGroup]='myForm' *ngIf="!submitting">
+                <img [src]="dpPreviewURL" (click)="imgControl.click()" alt="Click this box to add your profile image"
+                    width="100px" height="120px">
+                <input hidden type="file" (change)="onSelectDP($event)" #imgControl> <br>
+                <mat-form-field apppearance="fill">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName='first_name'>
+                    <mat-error *ngIf='first_name!.invalid'>
+                        First Name MUST be between 2-25 characters
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field apppearance="fill">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName='last_name'>
+                    <mat-error *ngIf='last_name!.invalid'>
+                        Last Name MUST be between 2-25 characters
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field apppearance="fill">
+                    <mat-label>Phone No</mat-label>
+                    <input matInput formControlName='tel'>
+                    <mat-error *ngIf='tel!.invalid'>
+                        Invalid phone number range
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field apppearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName='email'>
+                    <mat-error *ngIf='email!.invalid'>
+                        The provided email is invalid.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field apppearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput type='password' formControlName='password'>
+                    <mat-error *ngIf='password!.invalid'>
+                        Password MUST be above 8 characters in length.
+                    </mat-error>
+                </mat-form-field>
+                <mat-divider></mat-divider>
+                <div class="text-center">
+                    <button mat-raised-button (click)='register()' type="button" [disabled]='myForm.invalid'
+                    class="button-submit">
+                    Sign Up <mat-icon>send</mat-icon>
+                </button>
+                </div>
+                <mat-divider></mat-divider>
+            </form>
+        </div>
+    </article>
+    <aside>
+        <!-- <app-aside></app-aside> -->
+    </aside>
+</div>

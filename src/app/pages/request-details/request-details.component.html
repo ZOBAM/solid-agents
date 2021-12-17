@@ -2,9 +2,62 @@
     <article>
         <app-loading *ngIf="loading"></app-loading>
         <div *ngIf="!loading" id="property-details">
-            <div class="text-center mt-4">
-                <h1>{{"property.title"}}</h1>
+            <div class="flex flex-col items-center text-center mt-4">
+                <h1>{{propertyRequest.type}} needed in {{propertyRequest.state}}</h1>
+                <p class="inline-block shadow-md border border-gray-300 px-4 py-2">requested 2days ago</p>
             </div>
+            <div class="border-b-2 border-green-100 my-10 px-10">
+                <span class="block text-gray-500">Price Range:</span>
+                <p>
+                   <strong>
+                       Below N{{propertyRequest.highest_price.toFixed(2)}}
+                   </strong> 
+                </p>
+            </div>
+            <div class="border-b-2 border-green-100 mb-10 px-10">
+                <span class="block text-gray-500">Location:</span>
+                <p>
+                   <strong>
+                       {{propertyRequest.town +', '+ propertyRequest.lga + ' in '+propertyRequest.state}} state
+                   </strong> 
+                </p>
+            </div>
+            <div class="border-b-2 border-green-100 mb-10 px-10">
+                <span class="block text-gray-500">Deal Type:</span>
+                <p>
+                   <strong>
+                       For {{propertyRequest.deal}}
+                   </strong> 
+                </p>
+            </div>
+            <ng-container *ngIf="propertyRequest.type == 'Land'">
+            <div class="border-b-2 border-green-100 mb-10 px-10">
+                <span class="block text-gray-500">No. of Plots:</span>
+                <p>
+                   <strong>
+                       {{propertyRequest.plots? propertyRequest.plots + ' plot(s)' : 'Not available'}} 
+                   </strong> 
+                </p>
+            </div>
+            <div class="border-b-2 border-green-100 mb-10 px-10">
+                <span class="block text-gray-500">Land purpose:</span>
+                <p>
+                   <strong>
+                       {{propertyRequest.purpose || 'Not available'}} 
+                   </strong> 
+                </p>
+            </div>
+            </ng-container>
+            <ng-container *ngIf="propertyRequest.type == 'House'">
+            <div class="border-b-2 border-green-100 mb-10 px-10">
+                <span class="block text-gray-500">House type:</span>
+                <p>
+                   <strong>
+                       {{propertyRequest.house_type || 'Not available'}} 
+                   </strong> 
+                </p>
+            </div>
+            </ng-container>
         </div>
     </article>
     <aside></aside>
