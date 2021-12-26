@@ -1343,6 +1343,10 @@ video {
   padding-top: 2rem;
 }
 
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -1592,6 +1596,10 @@ video {
 
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
   }
 
   .md\:flex-nowrap {
