@@ -54,7 +54,7 @@ export class HomePageComponent implements OnInit {
   }
   getPropertyImg(property: any) {
     if (property.property_image) return property.property_image[0].link;
-    return 'No image';
+    return 'assets/images/no_image.png';
   }
   getPropertyTitle(title: string) {
     if (title.length > 19) {

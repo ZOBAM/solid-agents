@@ -19,13 +19,7 @@ export class LoginComponent implements OnInit {
     if (this.authService.isLoggedIn()) console.log('Already logged in');
     this.router.navigate(['/user-area']);
     this.loginForm = this.fb.group({
-      email: [
-        '',
-        [
-          //Validators.email,
-          Validators.required,
-        ],
-      ],
+      email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
     this.loginForm.valueChanges.subscribe((val) => {

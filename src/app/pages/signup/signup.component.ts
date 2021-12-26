@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ErrorService } from 'src/app/services/error.service';
 
@@ -12,7 +13,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    errorService: ErrorService
+    private errorService: ErrorService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +87,11 @@ export class SignupComponent implements OnInit {
     }
     regDetail.append('dp', this.selectedDP);
     this.authService.registerUser(regDetail).subscribe(
-      (res) => {
+      (res: any) => {
+        if (res.status == 1) {
+          this.authService.setUser(res);
+          this.router.navigate(['user-area']);
+        }
         console.log(res);
       },
       (error) => {

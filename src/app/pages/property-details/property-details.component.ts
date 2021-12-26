@@ -16,14 +16,15 @@ export class PropertyDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    let userID = this.auth.isLoggedIn() ? '/' + this.auth.currentUser.id : '';
     this.route.paramMap.subscribe((params) => {
       this.propType = params.get('type');
       this.propID = +params?.get('id')!;
       this.prop
-        .getProperties(this.propType + '/' + this.propID)
+        .getProperties(this.propType + '/' + this.propID + userID)
         .subscribe((res) => {
           this.setProperty(res);
-          //console.log(`${res}`);
+          console.log(`${res}`);
         });
       console.log(`This ${this.propType} property ID is: ${this.propID}`);
     });
@@ -43,9 +44,6 @@ export class PropertyDetailsComponent implements OnInit {
     this.property = property;
     this.propertyFetched = true;
     this.images = this.property.property_image;
-    this.property.desc +=
-      'Angular Live Development Server is listening on localhost:4200, open your browser on ';
-    console.log(property);
     if (this.property.house) {
       let house = new Map();
       for (let prop in property.house) {
@@ -53,7 +51,7 @@ export class PropertyDetailsComponent implements OnInit {
           house.set(prop, property.house[prop]);
         }
         this.house = house;
-        console.log(house);
+        //console.log(house);
       }
       /* this.property.house = this.property.house.filter(
         (elem: any, index: any) => {
@@ -100,5 +98,22 @@ export class PropertyDetailsComponent implements OnInit {
       default:
         return value;
     } */
+  }
+  like(propID: number) {
+    if (this.auth.isLoggedIn()) {
+      if (this.property.liked) {
+        this.property.likes--;
+      } else {
+        this.property.likes++;
+      }
+      this.property.liked = !this.property.liked;
+      this.prop
+        .like({ propID, userID: this.auth.currentUser.id })
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } else {
+      alert('log in first to like properties');
+    }
   }
 }

@@ -1,0 +1,37 @@
+<article>
+    <h1 class="text-center p-4">Verify Your {{type}}</h1>
+    <section class="flex flex-col items-center p-8 border">
+        <p>
+            Please, enter the verification code sent to your email to verify your email address and complete your registration.
+        </p>
+        <form [formGroup]="verifyForm" (ngSubmit)="verify()">
+            <mat-form-field class="" appearance="fill">
+                <mat-label>Verification code</mat-label>
+                <input matInput placeholder="Enter code" type="number" formControlName="code">
+            <mat-error *ngIf='code?.invalid'>
+                Code MUST be 6 characters in length.
+            </mat-error>
+            </mat-form-field>
+            <!-- <input type="number" formControlName="code" id="" class="border-2 border-gray-300 rounded-xl p-3 mt-6"> -->
+            <div class="center my-8">
+                <!-- <button class="bg-green-700 text-white px-8 py-4 my-8 disabled:opacity-50" [disabled]="!verifyForm.valid">Submit</button> -->
+                <button pButton type="submit" label="Submit" [disabled]="!verifyForm.valid || verifying" class=""></button>
+                <i *ngIf="verifying" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+            </div>
+        </form>
+        <div class="bg-green-50 p-8 w-full">
+            <p class="text-center" *ngIf="!sending">
+                You didn't get the code? 
+                <button class="hover:underline px-2 py-1 border-dotted border-2 border-green-400 rounded-md" (click)="verify(1)">
+                    Resend code
+                </button>
+            </p>
+            <p class="text-center" *ngIf="sending">
+                Sending a new verification code to your email.
+            </p>
+            <p class="text-center bg-green-700 text-white"  *ngIf="codeSent">
+                A new verification code has been sent to your email ({{currentUser.email}})
+            </p>
+        </div>
+    </section>
+</article>

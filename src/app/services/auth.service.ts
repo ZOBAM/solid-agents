@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorService } from '../services/error.service';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,12 @@ export class AuthService {
   currentUserToken: any;
   userCallRequests = [];
   userPropertyRequests = [];
-  constructor(private http: HttpClient, private errorService: ErrorService) {}
+  verified = false;
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService,
+    private router: Router
+  ) {}
   public isLoggedIn() {
     let currentUser = localStorage.getItem('userData');
     if (currentUser && JSON.parse(currentUser)) {
@@ -27,14 +33,29 @@ export class AuthService {
       return false;
     }
   }
+  public isVerified() {
+    //console.log(this.currentUser.email_verified_at != null ? true : false);
+    return this.currentUser.email_verified_at != null ? true : false;
+  }
 
   setUser(user: any) {
+    //console.log(user);
     localStorage.setItem('userData', JSON.stringify(user));
     this.currentUser = user.user;
     this.currentUserToken = user.access_token;
-    this.userCallRequests = user.user.call_requests;
-    this.userPropertyRequests = user.user.property_requests;
+    this.userCallRequests = user.user?.call_requests;
+    this.userPropertyRequests = user.user?.property_requests;
     this.loggedIn.next(true);
+  }
+  updateUser(payload: any) {
+    let user: any = localStorage.getItem('userData');
+    user = JSON.parse(user!);
+    for (const key in payload) {
+      if (Object.prototype.hasOwnProperty.call(payload, key)) {
+        user.user[key] = payload[key];
+      }
+    }
+    localStorage.setItem('userData', JSON.stringify(user));
   }
   registerUser(formData: any) {
     console.log('Trying to login');
@@ -60,5 +81,8 @@ export class AuthService {
     });
     console.log(newState);
     return newState;
+  }
+  verify(payload: any) {
+    return this.http.post(environment.apiUrl + '/verify', payload);
   }
 }

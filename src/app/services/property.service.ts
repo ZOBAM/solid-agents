@@ -125,4 +125,7 @@ export class PropertyService {
       formattedAmount = +formattedAmount.toFixed(1);
     return formattedAmount + postFix;
   }
+  like(payload: any) {
+    return this.http.post(this.apiURL + 'like', payload);
+  }
 }

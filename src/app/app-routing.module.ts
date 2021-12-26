@@ -16,6 +16,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { PropertiesComponent } from './components/user/properties/properties.component';
 import { RequestDetailsComponent } from './pages/request-details/request-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent, data: { title: 'Solid Agents' } },
@@ -44,6 +45,11 @@ const routes: Routes = [
     path: 'property_requests/:type/:id/:title',
     component: RequestDetailsComponent,
     data: { title: 'Property Request Details' },
+  },
+  {
+    path: 'verify/:contact',
+    component: VerifyComponent,
+    data: { title: 'Verify Contacts' },
   },
   {
     path: 'about-sa',

@@ -7,13 +7,13 @@
             </div>
             <section class="md:w-1/2 m-auto text-center">
                 <p-carousel [value]="images" [numVisible]="1">
-                <ng-template let-image pTemplate="item">
-                    <div  class="flex justify-center items-center bg-gray-200">
-                        <img [src]="image.link" style="max-width: 300px;">
-                    </div>
-                    
-                </ng-template>
-            </p-carousel>
+                    <ng-template let-image pTemplate="item">
+                        <div class="flex justify-center items-center bg-gray-200">
+                            <img [src]="image.link" style="max-width: 300px;">
+                        </div>
+            
+                    </ng-template>
+                </p-carousel>
             </section>
             
             <!-- <span *ngFor="let image of property.property_image">
@@ -61,8 +61,12 @@
                         </div>
                         <div class="flex w-1/2">
                             <div class="bg-green-400 text-white p-1">Likes: </div>
-                            <div class="text-center flex-grow p-1">
+                            <div class="text-center flex-grow p-1 relative">
                                 {{property.likes}}
+                                <!-- <i (click)="like(property.id)" class="pi pi-heart absolute right-4 hover:text-green-500 cursor-pointer" style="font-size: 1.5rem"></i> -->
+                                <span (click)="like(property.id)" class="material-icons absolute right-4 hover:text-green-500 cursor-pointer" style="font-size: 1.5rem">
+                                    {{property.liked? 'favorite': 'favorite_border'}}
+                                </span>
                             </div>
                         </div>
                     </div>

@@ -36,6 +36,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { PropertiesComponent } from './components/user/properties/properties.component';
 import { RequestDetailsComponent } from './pages/request-details/request-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { VerifyComponent } from './pages/verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { SignupComponent } from './pages/signup/signup.component';
     PropertiesComponent,
     RequestDetailsComponent,
     SignupComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,
