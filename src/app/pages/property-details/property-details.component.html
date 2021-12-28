@@ -22,10 +22,9 @@
             <section class="text-center bg-gray-50/90 p-3 relative">
                 <div id="description-div" class="bg-white rounded-xl md:w-1/2 m-auto p-5 relative">
                     <div class="absolute w-full -top-4 flex justify-center items-center">
-                        <span 
-                    class="uppercase border-2 border-green-400 px-4 py-2 rounded-full bg-white min-w-[33%]">
-                        {{property.type +' '+ property.deal.replace('_', ' ')}}
-                    </span>
+                        <span class="uppercase border-2 border-green-400 px-4 py-2 rounded-full bg-white min-w-[33%]">
+                            {{property.type +' '+ property.deal.replace('_', ' ')}}
+                        </span>
                     </div>
                     
                     <div class="mt-8 text-left">
@@ -35,6 +34,10 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 m-auto">
+                    <div class="flex text-left my-2 border border-green-400 rounded-tr-2xl">
+                        <div class="bg-green-400 text-white p-1">Date: </div>
+                        <div class="text-center flex-grow p-1">{{property.created_at | date}} </div>
+                    </div>
                     <div class="flex text-left my-2 border border-green-400 rounded-tr-2xl">
                         <div class="bg-green-400 text-white p-1">Location: </div>
                         <div class="text-center flex-grow p-1">{{property.town + ', '+property.lga + ', '+property.state}} state </div>

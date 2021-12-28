@@ -29,13 +29,11 @@
     <app-loading *ngIf="!properties"></app-loading>
     <div class="flex w-full flex-wrap px-[0.3rem] bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50">
         <div *ngFor="let property of properties" class="w-full sm:w-1/2 md:w-1/3 p-[0.1rem] flex justify-center my-10">
-            <mat-card class="relative min-h-[10rem] bg-no-repeat bg-right-top rounded-b-lg w-3/4" id="property-title">
+            <a [routerLink]="['/properties',property.type,property.id,property.title.split(' ').join('-')]" class="block w-3/4 hover:shadow-lg" [title]="property.title">
+               <mat-card class="relative min-h-[10rem] bg-no-repeat bg-right-top rounded-b-lg" id="property-title">
                 <mat-card-header class="center">
                     <mat-card-title class="h-[1.4rem] overflow-hidden text-green-900 text-xs" >
-                        <a
-                            [routerLink]="['/properties',property.type,property.id,property.title.split(' ').join('-')]" 
-                            class="whitespace-nowrap">
-                            {{getPropertyTitle(property.title)}}</a>
+                            {{getPropertyTitle(property.title)}}
                     </mat-card-title>
                 </mat-card-header>
                 <div style="height: 35vh;overflow: hidden;" class="center">
@@ -60,7 +58,8 @@
                                 class="absolute pl-1 text-xs">remove_red_eye</mat-icon> </div>
                     </div>
                 </mat-card-content>
-            </mat-card>
+            </mat-card> 
+            </a>
         </div>
     </div>
     <section class="bg-green-600 min-h-[24rem] bg-fixed my-36 relative flex-col sm:flex-row flex bg-cover bg-left-top" id="got-property">
