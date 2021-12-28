@@ -18,6 +18,10 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.randomNum1 = Math.ceil(Math.random() * 10);
+    setTimeout(() => {
+      this.randomNum2 = Math.ceil(Math.random() * 10);
+    }, 500);
     this.myForm = this.fb.group({
       first_name: [
         '',
@@ -45,6 +49,7 @@ export class SignupComponent implements OnInit {
       ],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
+      answer: [],
     });
   }
 
@@ -54,6 +59,9 @@ export class SignupComponent implements OnInit {
   myForm!: FormGroup;
   selectedDP!: File;
   dpPreviewURL = './assets/images/dp_placeholder.png';
+  randomNum1 = 0;
+  randomNum2 = 0;
+  notRobot = false;
 
   get first_name() {
     return this.myForm.get('first_name');
@@ -69,6 +77,19 @@ export class SignupComponent implements OnInit {
   }
   get password() {
     return this.myForm.get('password');
+  }
+  get answer() {
+    return this.myForm.get('answer');
+  }
+  checkAnswer(result = false) {
+    console.log(this.answer);
+    if (this.answer?.value == this.randomNum1 + this.randomNum2) {
+      console.log('not looking like bot.');
+      this.notRobot = true;
+    } else {
+      console.log('bot suspected.');
+      this.notRobot = false;
+    }
   }
   onSelectDP(event: any) {
     this.selectedDP = event.target.files[0];

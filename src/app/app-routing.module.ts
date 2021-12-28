@@ -34,11 +34,13 @@ const routes: Routes = [
   {
     path: 'request_call',
     component: RequestCallComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Request A Call' },
   },
   {
     path: 'request_property',
     component: PropertyRequestComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Request A Call' },
   },
   {
