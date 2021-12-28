@@ -88,4 +88,10 @@ export class SearchComponent implements OnInit {
         this.loading = false;
       });
   }
+  getImage(images: any) {
+    if (images) {
+      return images[0].link;
+    }
+    return 'assets/images/no_image.png';
+  }
 }

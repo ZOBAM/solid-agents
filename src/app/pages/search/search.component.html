@@ -58,7 +58,7 @@
         <section class="w-full sm:w-2/3">
             <div *ngFor="let result of searchResults" class="p-2 bg-white flex mb-2">
                 <div class="w-1/4 center max-h-28 overflow-hidden">
-                    <img [src]="result.images[0].link" [alt]="result.title+' image'">
+                    <img [src]="getImage(result.images)" [alt]="result.title+' image'">
                 </div>
                 <div class="flex-grow px-4">
                     <h3>
