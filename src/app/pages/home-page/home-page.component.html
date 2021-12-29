@@ -1,12 +1,12 @@
 <main id="main">
     <section class="py-6 bg-yellow-600 min-h-[12rem] bg-left-bottom bg-contain" id="search-area">
-        <div class="bg-gradient-to-t from-gray-200 via-white to-transparent">
+        <div class="bg-gradient-to-t from-gray-transparent via-white/20 to-transparent">
             <form (ngSubmit) = "search()" [formGroup]="searchQuery">
                 <div class="w-4/5 m-auto block">
                     <input type="text" formControlName="query" placeholder="Search properties" name="query"
                         class="w-full py-2 px-6 border-2 border-gray-300 rounded-full focus:border-green-500 outline-none">
                 </div>
-                <div class="flex justify-center bg-white flex-wrap gap-2 p-4 my-4">
+                <div class="flex justify-center bg-white/200 flex-wrap gap-2 p-4 my-4">
                     <p-dropdown formControlName="state" class="" (onChange)="getLgas()" [options]="states" placeholder="Select a State" [showClear]="true">
                     </p-dropdown>
                     <p-dropdown formControlName="lga" class="" [options]="lgas" placeholder="Select LGA"  [showClear]="true">

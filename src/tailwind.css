@@ -1141,6 +1141,10 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), #ecfdf5, var(--tw-gradient-to, rgba(236, 253, 245, 0));
 }
 
+.via-white\/20 {
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(255, 255, 255, 0.2), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+}
+
 .to-transparent {
   --tw-gradient-to: transparent;
 }
