@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   title = 'solid-agents';
   userStatus: any;
   isEditing: any;
+  user: any;
   constructor(
     private authService: AuthService,
     private propService: PropertyService,
@@ -54,9 +55,15 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getLoggedIn();
     this.isEditing = this.propService.isEditing;
+    setTimeout(() => {
+      this.user = 'this.getUser()';
+    }, 1000);
   }
   getStatus() {
     return this.authService.isLoggedIn();
+  }
+  getUser() {
+    return this.authService.currentUser;
   }
   logout() {
     this.authService.logout();

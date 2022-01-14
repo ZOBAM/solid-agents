@@ -5,14 +5,28 @@
       <a mat-list-item routerLink="/sagit" (click)="sidenav.toggle()" [disabled]="isEditing">Sag It</a>
       <a mat-list-item routerLink="/request_property" (click)="sidenav.toggle()">Request Property</a>
       <a mat-list-item routerLink="/request_call" (click)="sidenav.toggle()">Call Me</a>
-      <a mat-list-item [matMenuTriggerFor]="menu">User <mat-icon>keyboard_arrow_down</mat-icon></a>
+      <a mat-list-item [matMenuTriggerFor]="menu">
+        {{getStatus()? getUser().first_name : "User"}} <mat-icon>keyboard_arrow_down</mat-icon>
+      </a>
       <mat-menu #menu="matMenu" xPosition="after">
         <a *ngIf="!getStatus()" routerLink="/login"><button mat-menu-item (click)="sidenav.toggle()">Login</button></a>
         <a *ngIf="!getStatus()" routerLink="/signup"><button mat-menu-item
             (click)="sidenav.toggle()">Register</button></a>
-        <a *ngIf="getStatus()" routerLink="/user-area"><button mat-menu-item (click)="sidenav.toggle()">
+        <a *ngIf="getStatus()" routerLink="/user-area">
+          <button mat-menu-item (click)="sidenav.toggle()">
             User Area
-          </button></a>
+          </button>
+        </a>
+        <a *ngIf="getStatus()" routerLink="/user-area/requests">
+          <button mat-menu-item (click)="sidenav.toggle()">
+            My Requests
+          </button>
+        </a>
+        <a *ngIf="getStatus()" routerLink="/user-area/properties">
+          <button mat-menu-item (click)="sidenav.toggle()">
+            My Properties
+          </button>
+        </a>
         <span *ngIf="getStatus()" routerLink="/logout"><button mat-menu-item (click)="sidenav.toggle()" (click)="logout()">Logout</button></span>
       </mat-menu>
     </mat-nav-list>
