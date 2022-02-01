@@ -37,6 +37,8 @@ import { PropertiesComponent } from './components/user/properties/properties.com
 import { RequestDetailsComponent } from './pages/request-details/request-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { VerifyComponent } from './pages/verify/verify.component';
+import { ChatsComponent } from './components/user/chats/chats.component';
+import { ChatFormComponent } from './components/chat-form/chat-form.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { VerifyComponent } from './pages/verify/verify.component';
     RequestDetailsComponent,
     SignupComponent,
     VerifyComponent,
+    ChatsComponent,
+    ChatFormComponent,
   ],
   imports: [
     BrowserModule,

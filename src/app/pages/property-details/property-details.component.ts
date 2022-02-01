@@ -32,6 +32,8 @@ export class PropertyDetailsComponent implements OnInit {
   propType: any = '';
   propID: number = 0;
   property: any;
+  showTel = false;
+  showChat = false;
   propertyFetched: boolean = false;
   excludedFields = ['property_image', 'house', 'user_id'];
   images: string[] = [];
@@ -62,7 +64,7 @@ export class PropertyDetailsComponent implements OnInit {
     }
     return property;
   }
-  showEditButton(propID: number) {
+  isPropertyOwner(propID: number) {
     if (this.auth.getLoggedIn()) {
       if (
         this.auth.currentUser !== undefined &&
@@ -87,17 +89,6 @@ export class PropertyDetailsComponent implements OnInit {
     } else {
       return value;
     }
-    /* switch (value) {
-      case 1:
-        return 'Yes';
-      case 0:
-      case '0':
-        
-      case null:
-        return 'Not available';
-      default:
-        return value;
-    } */
   }
   like(propID: number) {
     if (this.auth.isLoggedIn()) {

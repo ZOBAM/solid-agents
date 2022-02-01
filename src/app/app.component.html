@@ -27,6 +27,11 @@
             My Properties
           </button>
         </a>
+        <a *ngIf="getStatus()" routerLink="/user-area/chats">
+          <button mat-menu-item (click)="sidenav.toggle()">
+            My Chats
+          </button>
+        </a>
         <span *ngIf="getStatus()" routerLink="/logout"><button mat-menu-item (click)="sidenav.toggle()" (click)="logout()">Logout</button></span>
       </mat-menu>
     </mat-nav-list>

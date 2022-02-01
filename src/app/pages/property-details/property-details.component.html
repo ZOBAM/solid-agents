@@ -1,12 +1,12 @@
 <div id="main">
     <article class="flex flex-col md:flex-row border border-blue-200">
-        <section class="w-full md:w-3/5">
+        <section class="w-full pt-8">
             <app-loading *ngIf="!property"></app-loading>
             <div *ngIf="propertyFetched" id="property-details">
                 <div class="text-center mt-4">
                     <h1>{{property.title}}</h1>
                 </div>
-                <section class="md:w-1/2 m-auto text-center">
+                <section class="md:w-4/5 m-auto text-center">
                     <p-carousel [value]="images" [numVisible]="1">
                         <ng-template let-image pTemplate="item">
                             <div class="flex justify-center items-center bg-gray-200">
@@ -123,7 +123,7 @@
 
                     </tr>
                 </table> -->
-                <div *ngIf="showEditButton(property.user_id)">
+                <div *ngIf="isPropertyOwner(property.user_id)">
                     <a [routerLink]="['/sagit',{edit:property.id,type:property.type}]"><button>Edit</button></a>
                 </div>
             </div>
@@ -142,30 +142,24 @@
                             {{property.owner.first_name + ' ' +property.owner.last_name }}
                         </span>
                         <div class="absolute right-1 border-2 border-green-400 rounded-md p-2 bg-green-50 text-center">
-                            <span class="text-xl text-black font-bold">24 </span><br> 
+                            <span class="text-xl text-black font-bold">{{property.owner.property_count}} </span><br> 
                             <span>properties<br>  sagged</span>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-around py-12">
-                    <button class="bg-green-400 text-white p-2 rounded-md">
-                        <span class="material-icons">call</span> Call
+                    <button class="bg-green-400 text-white p-2 rounded-md" (click)="showTel = !showTel">
+                        <span class="material-icons">call</span> {{showTel? property.owner.tel: 'Call'}}
                     </button>
-                    <button class="bg-green-400 text-white p-2 rounded-md">
+                    <button class="bg-green-400 text-white p-2 rounded-md" (click)="showChat = !showChat">
                         <span class="material-icons">chat</span> Chat
                     </button>
                 </div>
-                <div class="bg-gray-100 py-4">
-                    <form action="">
-                        <div>
-                            <textarea name="chat" id="chat" class="w-4/5 h-24 p-3 block m-auto border-2 border-gray-200"></textarea>
-                        </div>
-                        <div class="center m-6">
-                            <button class="bg-green-400 text-white p-2 rounded-md relative">
-                                <span class="text-xl pr-6">SEND </span> <span class="material-icons top-0 right-1 absolute mt-2">send</span>
-                            </button>
-                        </div>
-                    </form>
+                <div *ngIf="showChat" class="bg-gray-100 py-4">
+                    <app-chat-form *ngIf="!isPropertyOwner(property.user_id)" [property]="property" [receiverID]="property.user_id"> ,</app-chat-form>
+                    <p *ngIf="isPropertyOwner(property.user_id)" class="p-4 bg-red-200">
+                        You cannot initiate a chat with yourself since you are the owner of the this property.
+                    </p>
                 </div>
             </ng-container>
             <div *ngIf="!property" class="p-12">

@@ -1,0 +1,9 @@
+p,
+h3 {
+  margin: 0px;
+}
+.activeStyle {
+  border: 4px groove green;
+  background-color: rgb(165, 238, 238);
+  transition: border, background 1s;
+}

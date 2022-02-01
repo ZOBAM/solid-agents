@@ -1,0 +1,57 @@
+<article class="p-1 md:p-6 pt-8">
+    <h1 class="text-center relative">
+        Keep Touch <span class="text-green-400 block">With Clients</span> <mat-icon class="absolute right-0 -top-4">chat</mat-icon>
+    </h1>
+    <p *ngIf="loading">
+        Your chats Loading . . . 
+    </p>
+    <ng-container *ngIf="!loading">
+        <section *ngIf="propChats.length; else noChats" class="flex flex-col md:flex-row">
+            <div class="max-h-[80vh] overflow-auto">
+                <div *ngFor="let chat of propChats; let i = index" (click) = "loadChats(chat.property_id, i, chat.chatter.id)" class="flex bg-gray-50 my-6 shadow-md border rounded-xl hover:border-green-400 cursor-pointer" [class]="{activeStyle: chat.id == activePropChatID}">
+                <div class="flex flex-col p-2 items-center">
+                            <img [src]="chat.chatter.dp_link" class="w-16 h-16 bg-green-300 rounded-full border-2 border-green-400" alt="property owner's picture">
+                            <span class="block w-full whitespace-nowrap pt-2 font-bold text-black/40">
+                                {{chat.chatter.first_name + " "+ chat.chatter.last_name}}
+                            </span>
+                    </div>
+                <div class="flex-grow flex flex-wrap items-center">
+                    <div class="w-full flex flex-wrap items-center">
+                        <div class="py-2 px-2 flex-grow">
+                            <h3 class=" whitespace-nowrap w-full overflow-hidden">{{chat.property.title}}</h3>
+                                <p class=" text-xs">
+                                    {{chat.property.town + ', in ' + chat.property.lga + ', ' + chat.property.state + " state"}}
+                                </p>
+                        </div>
+                            <div class="bg-gray-100 bottom-0 text-right w-full text-xs p-1 font-bold text-green-800/40">
+                                {{chat.property.price | currency:"₦"}}
+                            </div>
+                            <div class="bg-gray-200 bottom-0 text-right w-full text-xs pr-2">
+                                {{chat.created_at | date}}
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="border rounded-lg flex-grow m-2 p-4">
+                <div *ngIf="activeChats; noActiveChats" class="flex flex-col items-space-between">
+                    <div class="h-[45vh] overflow-auto" #chatbox>
+                        <div *ngFor="let chat of activeChats" class="flex" [class]="{'justify-end': isSender(chat)}">
+                            <span [class]="{'border-b-4': isSender(chat)}" class="p-3 rounded-md border border-green-200 mt-3 max-w-[86%]">
+                                {{chat.chat}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="pt-8">
+                        <app-chat-form [property]="propChat.property" [receiverID]="receiverID" (newChat)="updateChat($event)"></app-chat-form>
+                    </div>
+                </div>
+                <ng-template #noActiveChats>
+                    This will contain the active chats and the form for writing new ones.
+                </ng-template>
+            </div>
+        </section>
+        <ng-template #noChats>No chats yet.</ng-template>
+    </ng-container>
+    
+</article>

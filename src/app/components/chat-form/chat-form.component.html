@@ -1,0 +1,18 @@
+<form [formGroup]="chatForm">
+    <div class="center">
+        <!-- <textarea formControlName = "message" name="chat" id="chat" class="w-4/5 h-24 p-3 block m-auto border-2 border-gray-200"></textarea>
+                            <span *ngIf="message!.invalid">Write a message before sending</span> -->
+        <mat-form-field class="w-full md:w-4/5 h-24 p-3 block m-auto border-2 border-gray-200" appearance="fill">
+            <mat-label>Write a message</mat-label>
+            <textarea formControlName="message" matInput placeholder="I..."></textarea>
+            <mat-error *ngIf='message?.invalid'>
+                Write a message before sending.
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="center m-6">
+        <button class="bg-green-400 text-white disabled:bg-gray-400 p-2 rounded-md relative" (click)="chat()" [disabled]="chatForm.invalid">
+            <span class="text-xl pr-6">SEND </span> <span class="material-icons top-0 right-1 absolute mt-2">send</span>
+        </button>
+    </div>
+</form>

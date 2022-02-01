@@ -58,14 +58,14 @@ export class AuthService {
     localStorage.setItem('userData', JSON.stringify(user));
   }
   registerUser(formData: any) {
-    console.log('Trying to login');
+    //console.log('Trying to login');
     return this.http
       .post(this.registerURL, formData)
       .pipe(catchError(this.errorService.handleError));
   }
   login(credentials: any) {
-    console.log('Trying to login');
-    console.log(credentials);
+    //console.log('Trying to login');
+    //console.log(credentials);
     return this.http
       .post(this.loginURL, credentials)
       .pipe(catchError(this.errorService.handleError));
@@ -79,7 +79,7 @@ export class AuthService {
     this.loggedIn.subscribe((status) => {
       newState = status;
     });
-    console.log(newState);
+    //console.log(newState);
     return newState;
   }
   verify(payload: any) {

@@ -17,6 +17,7 @@ import { PropertiesComponent } from './components/user/properties/properties.com
 import { RequestDetailsComponent } from './pages/request-details/request-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { VerifyComponent } from './pages/verify/verify.component';
+import { ChatsComponent } from './components/user/chats/chats.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent, data: { title: 'Solid Agents' } },
@@ -75,6 +76,10 @@ const routes: Routes = [
       {
         path: 'properties',
         component: PropertiesComponent,
+      },
+      {
+        path: 'chats',
+        component: ChatsComponent,
       },
       {
         path: '',
