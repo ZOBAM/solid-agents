@@ -37,11 +37,29 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-header (sidenavToggle)="sidenav.toggle()" [status]="getStatus()" (logout)="logout()"></app-header>
+    <app-header (sidenavToggle)="sidenav.toggle()" [status]="getStatus()" (logout)="logout()" (notificationToggle)="displayNotifications()"></app-header>
     <main>
       <!-- Add Content Here -->
-<router-outlet></router-outlet><p-toast position="top-right"></p-toast>
-</main>
-<app-footer></app-footer>
-</mat-sidenav-content>
+      <router-outlet></router-outlet>
+      <p-toast position="top-right"></p-toast>
+    </main>
+    <!-- <app-notifications *ngIf="showNotifications"></app-notifications> -->
+    <section *ngIf="showNotifications" class="w-48 h-[85vh] bg-white border-2 border-green-600 fixed top-12 right-0 p-4 rounded-md" #notificationElem>
+      <ng-container *ngIf="notificationCount">
+        <div *ngFor="let note of notificationMessages">
+          <p>
+            <a routerLink="user-area/chats">{{note.body}}</a> 
+          </p>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!notificationCount">
+        <div>
+          <p>
+            You currently do not have any notifications. 
+          </p>
+        </div>
+      </ng-container>
+    </section>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
 </mat-sidenav-container>

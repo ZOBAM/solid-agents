@@ -2,7 +2,7 @@
     <section>
         <mat-tab-group mat-align-tabs="center" [selectedIndex] = "currentIndex">
             <mat-tab label="Property Request">
-                <p-table [value]="propertyRequests" responsiveLayout="stack" breakpoint="680px">
+                <p-table [value]="propertyRequests" responsiveLayout="stack" breakpoint="680px" [paginator]="true" [rows]="5">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Date</th>

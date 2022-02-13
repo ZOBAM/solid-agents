@@ -7,39 +7,44 @@
     </p>
     <ng-container *ngIf="!loading">
         <section *ngIf="propChats.length; else noChats" class="flex flex-col md:flex-row">
-            <div class="max-h-[80vh] overflow-auto">
-                <div *ngFor="let chat of propChats; let i = index" (click) = "loadChats(chat.property_id, i, chat.chatter.id)" class="flex bg-gray-50 my-6 shadow-md border rounded-xl hover:border-green-400 cursor-pointer" [class]="{activeStyle: chat.id == activePropChatID}">
-                <div class="flex flex-col p-2 items-center">
-                            <img [src]="chat.chatter.dp_link" class="w-16 h-16 bg-green-300 rounded-full border-2 border-green-400" alt="property owner's picture">
-                            <span class="block w-full whitespace-nowrap pt-2 font-bold text-black/40">
-                                {{chat.chatter.first_name + " "+ chat.chatter.last_name}}
-                            </span>
+            <div class="max-h-[80vh] overflow-x-hidden overflow-y-auto">
+                <div *ngFor="let chat of propChats; let i = index" (click)="loadChats(chat.property_id, i, chat.chatter.id)"
+                    class="flex bg-gray-50 my-6 shadow-md border rounded-xl hover:border-green-400 cursor-pointer relative"
+                    [class]="{activeStyle: chat.id == activePropChatID}">
+                    <div *ngIf="chat.new_chat_count" [matBadge]="chat.new_chat_count" matBadgeColor="accent" class="bg-green-300 absolute right-12"></div>
+                    <div class="flex flex-col p-2 items-center">
+                        <img [src]="chat.chatter.dp_link" class="w-16 h-16 bg-green-300 rounded-full border-2 border-green-400"
+                            alt="property owner's picture">
+                        <span class="block w-full whitespace-nowrap pt-2 font-bold text-black/40">
+                            {{chat.chatter.first_name + " "+ chat.chatter.last_name}}
+                        </span>
                     </div>
-                <div class="flex-grow flex flex-wrap items-center">
-                    <div class="w-full flex flex-wrap items-center">
-                        <div class="py-2 px-2 flex-grow">
-                            <h3 class=" whitespace-nowrap w-full overflow-hidden">{{chat.property.title}}</h3>
+                    <div class="flex-grow flex flex-wrap items-center">
+                        <div class="w-full flex flex-wrap items-center">
+                            <div class="py-2 px-2 flex-grow">
+                                <h3 class=" whitespace-nowrap w-full overflow-hidden">{{chat.property.title}}</h3>
                                 <p class=" text-xs">
                                     {{chat.property.town + ', in ' + chat.property.lga + ', ' + chat.property.state + " state"}}
                                 </p>
-                        </div>
+                            </div>
                             <div class="bg-gray-100 bottom-0 text-right w-full text-xs p-1 font-bold text-green-800/40">
                                 {{chat.property.price | currency:"₦"}}
                             </div>
                             <div class="bg-gray-200 bottom-0 text-right w-full text-xs pr-2">
                                 {{chat.created_at | date}}
                             </div>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
             <div class="border rounded-lg flex-grow m-2 p-4">
                 <div *ngIf="activeChats; noActiveChats" class="flex flex-col items-space-between">
-                    <div class="h-[45vh] overflow-auto" #chatbox>
-                        <div *ngFor="let chat of activeChats" class="flex" [class]="{'justify-end': isSender(chat)}">
-                            <span [class]="{'border-b-4': isSender(chat)}" class="p-3 rounded-md border border-green-200 mt-3 max-w-[86%]">
+                    <div class="h-[45vh] overflow-y-auto overflow-x-hidden relative" #chatbox>
+                        <div *ngFor="let chat of activeChats; let i = index" class="flex" [class]="{'justify-end': isSender(chat)}">
+                            <span [class]="{'border-b-4': isSender(chat), 'border-l-0': isSender(chat)}" class="p-3 rounded-md border border-green-200 mt-3 max-w-[86%]">
                                 {{chat.chat}}
                             </span>
+                            <mat-icon *ngIf="isSender(chat) && chat.viewed" style="font-size: .7rem; margin-top: 2rem;" class="">checked</mat-icon>
                         </div>
                     </div>
                     <div class="pt-8">

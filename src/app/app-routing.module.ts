@@ -18,6 +18,10 @@ import { RequestDetailsComponent } from './pages/request-details/request-details
 import { SignupComponent } from './pages/signup/signup.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { ChatsComponent } from './components/user/chats/chats.component';
+import { IndexComponent } from './admin/index/index.component';
+import { PropertiesPageComponent } from './admin/properties-page/properties-page.component';
+import { NotificationPageComponent } from './admin/notification-page/notification-page.component';
+import { UsersPageComponent } from './admin/users-page/users-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent, data: { title: 'Solid Agents' } },
@@ -84,6 +88,25 @@ const routes: Routes = [
       {
         path: '',
         component: ProfileComponent,
+      },
+    ],
+  },
+  {
+    path: 'admin',
+    component: IndexComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'users',
+        component: UsersPageComponent,
+      },
+      {
+        path: 'properties',
+        component: PropertiesPageComponent,
+      },
+      {
+        path: 'notifications',
+        component: NotificationPageComponent,
       },
     ],
   },

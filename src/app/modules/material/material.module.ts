@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const Material = [
   MatSliderModule,
@@ -34,6 +35,7 @@ const Material = [
   MatCheckboxModule,
   MatTableModule,
   MatTabsModule,
+  MatBadgeModule,
 ];
 @NgModule({
   imports: [Material],

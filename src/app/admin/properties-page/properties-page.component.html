@@ -1,0 +1,47 @@
+<article>
+    <p-confirmPopup></p-confirmPopup>
+    <h1 class="text-center">List of all Sagged Properties</h1>
+    <section class="bg-gray-100">
+        <ng-container *ngIf="!loading">
+        <p-table [value]="properties" responsiveLayout="stack" breakpoint="680px" [paginator]="true" [rows]="5">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Price (N)</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-properties>
+                <tr>
+                    <td>
+                        <span class="p-column-title">Date</span>
+                        {{properties.created_at | date}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Description</span>
+                        {{properties.title}}<br>
+                        <span class="inline-block font-semibold text-xs bg-green-100 p-1 rounded-md">
+                            {{properties.deal.replace('_', ' ')}} ({{properties.house_type || properties.purpose}})
+                        </span>
+        
+                    </td>
+                    <td>
+                        <span class="p-column-title">Price (N)</span>
+                        {{properties.price | currency:"₦"}}
+                    </td>
+                    <td>
+                        <span class="p-column-title font-bold">Action</span>
+                        <i *ngIf="loadingAdminAction && currentPropertyID == properties.id" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+                        <button (click)="adminAction($event, 'suspend', properties)" pButton type="button" *ngIf="properties.approved_by" class="p-button-danger p-button-raised p-button-rounded">Suspend</button>
+                        <button (click)="adminAction($event, 'approve', properties)" pButton type="button" *ngIf="!properties.approved_by" class="p-button-raised p-button-rounded">Approve</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        </ng-container>
+        <div *ngIf="loading" class="bg-green-50 p-4 font-bold">
+            Loading properties . . . 
+        </div>
+    </section>
+</article>

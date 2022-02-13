@@ -32,11 +32,17 @@ export class PropertyService {
     //console.log(propertyForm)
     return this.http.post(this.postURL, propertyForm);
   }
-  getProperties(propInfo = '') {
-    let urlPara = propInfo !== '' ? '/' + propInfo : propInfo;
-    return this.http
-      .get(this.postURL + urlPara)
-      .pipe(catchError(this.errorService.handleError));
+  getProperties(propInfo = '', isAdmin = false, payload = {}) {
+    if (isAdmin) {
+      return this.http
+        .post(this.apiURL + 'admin/properties', payload)
+        .pipe(catchError(this.errorService.handleError));
+    } else {
+      let urlPara = propInfo !== '' ? '/' + propInfo : propInfo;
+      return this.http
+        .get(this.postURL + urlPara)
+        .pipe(catchError(this.errorService.handleError));
+    }
   }
   getRequests(id = 0) {
     if (id) return this.http.get(this.apiURL + 'requests/' + id);
@@ -127,5 +133,8 @@ export class PropertyService {
   }
   like(payload: any) {
     return this.http.post(this.apiURL + 'like', payload);
+  }
+  adminAction(payload: any) {
+    return this.http.post(this.apiURL + 'admin/properties', payload);
   }
 }

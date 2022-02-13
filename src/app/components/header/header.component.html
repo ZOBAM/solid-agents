@@ -1,14 +1,14 @@
-<mat-toolbar id="toolbar">
+<mat-toolbar id="toolbar" class="flex justify-between">
     <div class="sm:hidden">
         <button mat-icon-button (click)="onToggleSidenav()">
             <mat-icon class="text-white">menu</mat-icon>
         </button>
     </div>
     <div>
-        <a routerLink=""><img src="../../assets/images/navicon.png" alt=""> Solid Agents</a>
+        <a routerLink=""><img src="../../assets/images/navicon.png" class="w-20" alt="solid agents logo"></a>
     </div>
-    <div class="hidden sm:flex justify-end w-full">
-        <ul fxLayout fxLayoutGap="15px" class="navigation-items flex gap-1">
+    <div class="hidden sm:flex justify-end">
+        <ul class="navigation-items flex gap-1">
             <li>
                 <a routerLink="/sagit" routerLinkActive="active-link">Sag It</a>
             </li>
@@ -31,5 +31,9 @@
                 <span *ngIf="status" (click)="endSession()"><button mat-menu-item>Logout</button></span>
             </mat-menu>
         </ul>
+    </div>
+    <div class="m-1 rounded-md w-10 cursor-pointer" (click)="showNotice()">
+        <mat-icon *ngIf="notificationsCount" [matBadge]="notificationsCount" matBadgeColor="warn" class="text-white">notifications</mat-icon>
+        <mat-icon *ngIf="!notificationsCount" class="text-white">notifications</mat-icon>
     </div>
 </mat-toolbar>

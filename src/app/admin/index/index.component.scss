@@ -1,0 +1,14 @@
+mat-nav-list {
+  padding: 0px;
+  margin: 0px;
+  line-height: 1rem;
+  a,
+  mat-list-item {
+    color: rgba(255, 255, 255, 0.671);
+    margin: -10px;
+    border-left: 1px solid rgba(9, 241, 60, 0.692);
+  }
+}
+h4 {
+  margin: 1.5rem 0px 0px;
+}

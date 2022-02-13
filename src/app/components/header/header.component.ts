@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +12,19 @@ export class HeaderComponent implements OnInit {
   @Input() status: any;
   @Output() logout = new EventEmitter();
   @Output() public sidenavToggle = new EventEmitter();
+  @Output() notificationToggle = new EventEmitter();
   @Output() signout = new EventEmitter();
   user = null;
-  constructor(private authService: AuthService) {}
-  ngOnInit(): void {}
+  notificationsCount = 0;
+  constructor(
+    private authService: AuthService,
+    private notificationService: NotificationService
+  ) {}
+  ngOnInit(): void {
+    setInterval(() => {
+      this.notificationsCount = this.notificationService.getNotificationCount();
+    }, 2000);
+  }
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
   };
@@ -23,5 +33,8 @@ export class HeaderComponent implements OnInit {
   }
   endSession() {
     this.logout.emit();
+  }
+  showNotice() {
+    this.notificationToggle.emit();
   }
 }

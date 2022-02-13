@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-chats',
@@ -11,32 +12,18 @@ export class ChatsComponent implements OnInit {
   @ViewChild('chatbox') ChatElem!: ElementRef;
   constructor(
     private chatService: ChatService,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.intervalHandle = setInterval(() => {
-      this.chatService.getMessages().subscribe((resp: any) => {
-        console.log(resp);
-        this.propChats = resp.uniquePropChats;
-        let prevChats = this.chats;
-        this.chats = resp.chats;
-        this.loading = false;
-        if (this.activePropChatID && this.chats.length != prevChats.length) {
-          this.loadChats(
-            this.activeChats[0].property_id,
-            this.activePropChatIndex,
-            this.receiverID
-          );
-          console.log('this is not the first load');
-        }
-      });
-    }, 10000);
+    this.fetchData();
+    this.intervalHandle = setInterval(() => this.fetchData(), 30000);
   }
   ngOnDestroy() {
     clearInterval(this.intervalHandle);
-    alert('destroying component');
+    // alert('destroying component');
   }
   intervalHandle: any;
   chats: any;
@@ -47,19 +34,44 @@ export class ChatsComponent implements OnInit {
   activePropChatIndex = 0;
   activeChats: any;
   receiverID = 0;
+  lastChat: any = {};
+  fetchData() {
+    this.chatService.getMessages().subscribe((resp: any) => {
+      console.log(resp);
+      this.propChats = resp.uniquePropChats;
+      let prevChats = this.chats;
+      this.chats = resp.chats;
+      this.loading = false;
+      if (this.activePropChatID && this.chats.length != prevChats.length) {
+        this.loadChats(
+          this.activeChats[0].property_id,
+          this.activePropChatIndex,
+          this.receiverID
+        );
+        console.log('this is not the first load');
+      }
+    });
+    //also fetch notifications
+    this.notificationService.getNotifications();
+  }
   loadChats(property_id: number, index: number, chatter_id: number) {
     //alert(property_id);
     this.activePropChatIndex = index;
     this.propChat = this.propChats[index];
     this.activePropChatID = this.propChat.id;
     this.activeChats = this.chats.filter((chat: any) => {
-      return (
+      let check =
         chat.property_id == property_id &&
-        (chat.sender_id == chatter_id || chat.receiver_id == chatter_id)
-      );
+        (chat.sender_id == chatter_id || chat.receiver_id == chatter_id);
+      if (check && chat.receiver_id == this.authService.currentUser.id) {
+        this.lastChat = chat;
+      }
+      return check;
     });
     /* console.log('active chats');
     console.log(this.activeChats); */
+    console.log('LAST chat');
+    console.log(this.lastChat);
     this.receiverID =
       this.authService.currentUser.id != this.propChat.sender_id
         ? this.propChat.sender_id
@@ -70,6 +82,17 @@ export class ChatsComponent implements OnInit {
     console.log(this.activeChats);
     // alert(this.ChatElem.nativeElement.scrollHeight);
     this.scrollToLastChat();
+    this.propChat.new_chat_count = 0;
+    //update viewed chats in the backend
+    // this.notificationService.addNotification();
+    this.chatService
+      .updateViewed({
+        chatID: this.lastChat.id,
+        senderID: this.lastChat.sender_id,
+      })
+      .subscribe((resp) => {
+        console.log(resp);
+      });
   }
   isSender(chat: any) {
     //for styling chats differently
@@ -96,5 +119,8 @@ export class ChatsComponent implements OnInit {
       this.ChatElem.nativeElement.scrollTop =
         this.ChatElem.nativeElement.scrollHeight;
     }, 10);
+  }
+  updateViewed(index: number) {
+    console.log('Updating viewed chats.' + index);
   }
 }

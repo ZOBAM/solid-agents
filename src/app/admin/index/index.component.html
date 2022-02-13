@@ -1,0 +1,22 @@
+<article class="flex">
+    <section class="w-1/5 bg-gray-700 text-white p-4">
+        <h2 class="px-2 bg-gray-600 text-center">SA Admin</h2>
+        <div>
+            <h4>Manage Users</h4>
+            <mat-nav-list>
+                <a mat-list-item *ngFor="let item of usersLinks" [routerLink]="item.link" class="text-white">{{item.text}}</a>
+            </mat-nav-list>
+            <h4>Manage Properties</h4>
+            <mat-nav-list>
+                <a mat-list-item *ngFor="let item of propLinks" [routerLink]="item.link" class="text-white">{{item.text}}</a>
+            </mat-nav-list>
+            <h4>Manage Notifications</h4>
+            <mat-nav-list>
+                <a mat-list-item *ngFor="let item of notificationLinks" [routerLink]="item.link" class="text-white">{{item.text}}</a>
+            </mat-nav-list>
+        </div>
+    </section>
+    <section class="w-4/5 bg-gray-50 p-4">
+        <router-outlet></router-outlet>
+    </section>
+</article>

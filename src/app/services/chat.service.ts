@@ -15,4 +15,7 @@ export class ChatService {
     return this.http.get(this.apiURL + 'messages');
     //alert('about to fetch messages from server');
   }
+  updateViewed(payload: any) {
+    return this.http.post(this.apiURL + 'messages/update_viewed', payload);
+  }
 }

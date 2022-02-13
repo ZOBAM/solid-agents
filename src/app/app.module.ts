@@ -39,6 +39,11 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { VerifyComponent } from './pages/verify/verify.component';
 import { ChatsComponent } from './components/user/chats/chats.component';
 import { ChatFormComponent } from './components/chat-form/chat-form.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { IndexComponent } from './admin/index/index.component';
+import { NotificationPageComponent } from './admin/notification-page/notification-page.component';
+import { PropertiesPageComponent } from './admin/properties-page/properties-page.component';
+import { UsersPageComponent } from './admin/users-page/users-page.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +70,11 @@ import { ChatFormComponent } from './components/chat-form/chat-form.component';
     VerifyComponent,
     ChatsComponent,
     ChatFormComponent,
+    NotificationsComponent,
+    IndexComponent,
+    NotificationPageComponent,
+    PropertiesPageComponent,
+    UsersPageComponent,
   ],
   imports: [
     BrowserModule,
