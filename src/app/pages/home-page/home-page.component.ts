@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { PropertyService } from '../../services/property.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';

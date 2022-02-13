@@ -1,8 +1,16 @@
 <section class="p-8">
     <p-confirmPopup></p-confirmPopup>
-    <div class="center">
+    <div class="center flex-col relative">
         <img [src]="user.dp_link" alt="user profile image" style="max-width: 100px;">
+        <input type="file" hidden  (change)="imageSelected($event)" #changeDP >
+        <span class="bg-gray-200 absolute -bottom-4 right-[40%] p-1 border-2 border-green-50 inline-block rounded-full">
+            <mat-icon (click) = "changeDP.click()" class="cursor-pointer" title="change display picture">add_a_photo</mat-icon>
+        </span>
     </div>
+    <div *ngIf="changingDP && !foundError" class="w-full text-center my-2">
+        <button (click)="updateDP()" pButton class="text-center my-2">Save Changes</button>
+    </div>
+    <p-message *ngIf="foundError" severity="error" [text]="errorMessage"></p-message>
     <div class=" my-6">
         <p class="text-center p-4 bg-gradient-to-r from-green-50 via-green-100 to-green-50">
             Welcome <strong>{{user.first_name + ' ' + user.last_name}}</strong> 
@@ -32,4 +40,10 @@
             </p>
             <span class="block text-sm mb-2 -mt-2">Date Joined:</span>
     </div>
+    <p-messages severity="info">
+        <ng-template pTemplate>
+            <img src="assets/showcase/images/primeng.svg" width="32" />
+            <div class="ml-2">Always bet on Prime.</div>
+        </ng-template>
+    </p-messages>
 </section>

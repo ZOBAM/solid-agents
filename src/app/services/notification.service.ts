@@ -12,7 +12,6 @@ export class NotificationService {
   notifications: Note[] = [];
   addNotification(payload: Note) {
     this.notifications.push(payload);
-    console.log(this.getNotificationCount());
   }
   getNotificationCount() {
     return this.notifications.length;
@@ -21,7 +20,6 @@ export class NotificationService {
     return this.http
       .get(this.apiURL + 'notifications')
       .subscribe((resp: any) => {
-        console.log(resp);
         if (resp.notificationsCount) {
           this.addNotification(resp.notifications);
         } else {

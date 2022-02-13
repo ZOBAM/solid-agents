@@ -19,7 +19,7 @@
                 <a routerLink="/request_call" routerLinkActive="active-link">Call Me</a>
             </li>
             <li [matMenuTriggerFor]="menu" style="position: relative;">
-                <a>
+                <a class="cursor-pointer">
                     {{status? getUser().first_name : "User"}}
                     <mat-icon style="display: inline-block;position: relative;top:6px">keyboard_arrow_down</mat-icon>
                 </a>

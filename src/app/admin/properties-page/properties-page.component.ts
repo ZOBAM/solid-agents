@@ -17,7 +17,6 @@ export class PropertiesPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.propService.getProperties('', true, {}).subscribe((resp: any) => {
-      console.log(resp);
       this.properties = resp.properties;
       this.loading = false;
     });
@@ -46,7 +45,6 @@ export class PropertiesPageComponent implements OnInit {
             propertyID: property.id,
           })
           .subscribe((resp: any) => {
-            console.log(resp);
             this.loadingAdminAction = false;
             this.properties.forEach((elem) => {
               if (elem.id == property.id) {

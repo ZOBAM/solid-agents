@@ -102,7 +102,6 @@ export class AppComponent implements OnInit {
     this.notificationOpenTime = new Date().getTime();
     this.notificationMessages = this.notificationService.notifications;
     this.notificationCount = this.notificationService.getNotificationCount();
-    console.log(this.notificationService.notifications);
     // this.showNotifications = true;
   }
 }

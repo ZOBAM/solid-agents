@@ -13,6 +13,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TabViewModule } from 'primeng/tabview';
 import { TableModule } from 'primeng/table';
 import { FieldsetModule } from 'primeng/fieldset';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 const PrimeNG = [
   ButtonModule,
@@ -29,6 +31,8 @@ const PrimeNG = [
   TabViewModule,
   TableModule,
   FieldsetModule,
+  MessageModule,
+  MessagesModule,
 ];
 
 @NgModule({
